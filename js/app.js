@@ -3,21 +3,6 @@
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // ===== Initialize Lenis Smooth Scroll =====
-  if (typeof Lenis !== 'undefined') {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-  }
-
   // ===== Disable heavy animations on slow networks =====
   const isSlowNetwork = navigator.connection && (navigator.connection.effectiveType === '2g' || navigator.connection.saveData);
   if (isSlowNetwork) {
@@ -52,6 +37,79 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileMenu.addEventListener('touchend', e => {
       if (e.changedTouches[0].screenX - touchStartX > 50) closeMobileMenu();
     }, {passive: true});
+  }
+
+  // ===== Mega Menu Keyboard / ARIA =====
+  const programsDropdown = document.querySelector('.nav-item-dropdown');
+  const programsTrigger = document.getElementById('programsTrigger');
+  const megaMenu = document.getElementById('megaMenu');
+  if (programsDropdown && programsTrigger && megaMenu) {
+    const megaFocusables = Array.from(megaMenu.querySelectorAll('a[href], button'));
+    let keyboardOpen = false;
+
+    function openMegaMenu(fromKeyboard = false) {
+      programsDropdown.classList.add('open');
+      programsTrigger.setAttribute('aria-expanded', 'true');
+      if (fromKeyboard) {
+        keyboardOpen = true;
+        if (megaFocusables.length) megaFocusables[0].focus();
+      }
+    }
+    function closeMegaMenu(returnFocus = false) {
+      programsDropdown.classList.remove('open');
+      programsTrigger.setAttribute('aria-expanded', 'false');
+      keyboardOpen = false;
+      if (returnFocus) programsTrigger.focus();
+    }
+
+    programsTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (programsDropdown.classList.contains('open')) {
+        closeMegaMenu();
+      } else {
+        openMegaMenu(true);
+      }
+    });
+
+    programsTrigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        openMegaMenu(true);
+      }
+      if (e.key === 'Escape' && programsDropdown.classList.contains('open')) {
+        e.preventDefault();
+        closeMegaMenu(true);
+      }
+    });
+
+    megaMenu.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeMegaMenu(true);
+        return;
+      }
+      if (e.key === 'Tab' && megaFocusables.length) {
+        const first = megaFocusables[0];
+        const last = megaFocusables[megaFocusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          closeMegaMenu(true);
+        } else if (!e.shiftKey && document.activeElement === last) {
+          closeMegaMenu();
+        }
+      }
+    });
+
+    document.addEventListener('focusin', (e) => {
+      if (keyboardOpen && !programsDropdown.contains(e.target)) {
+        closeMegaMenu(false);
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (programsDropdown.classList.contains('open') && !programsDropdown.contains(e.target)) {
+        closeMegaMenu(false);
+      }
+    });
   }
 
   // ===== Global Escape Key for Modals =====
@@ -177,44 +235,27 @@ document.addEventListener('DOMContentLoaded', () => {
   faqItems.forEach(item => {
     const question = item.querySelector('.faq-question');
     question.addEventListener('click', () => {
-      const isActive = item.classList.contains('active');
-      faqItems.forEach(i => i.classList.remove('active'));
-      if (!isActive) item.classList.add('active');
+      const isOpen = item.classList.contains('open');
+      faqItems.forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
     });
   });
 
-  // ===== Duna Video Carousel Modal Logic =====
-  const dunaCards = document.querySelectorAll('.duna-card');
-  const dunaModal = document.getElementById('dunaModal');
-  const dunaModalClose = document.getElementById('dunaModalClose');
-  const dunaModalQuote = document.getElementById('dunaModalQuote');
-  const dunaModalAuthor = document.getElementById('dunaModalAuthor');
-  const dunaModalLogo = document.getElementById('dunaModalLogo');
-
-  if (dunaModal && dunaCards.length > 0) {
-    dunaCards.forEach(card => {
-      card.addEventListener('click', () => {
-        const quote = card.getAttribute('data-quote');
-        const author = card.getAttribute('data-author');
-        const logo = card.getAttribute('data-logo');
-
-        if (dunaModalQuote) dunaModalQuote.textContent = `"${quote}"`;
-        if (dunaModalAuthor) dunaModalAuthor.textContent = author;
-        if (dunaModalLogo) dunaModalLogo.textContent = logo;
-
-        dunaModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      });
-    });
-
-    const closeDunaModal = () => {
-      dunaModal.classList.remove('active');
-      document.body.style.overflow = '';
-    };
-
-    if (dunaModalClose) dunaModalClose.addEventListener('click', closeDunaModal);
-    dunaModal.addEventListener('click', (e) => {
-      if (e.target === dunaModal) closeDunaModal();
+  // ===== Shared Focus Trap for Modals =====
+  function trapFocus(container, closeFn) {
+    container.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      const focusables = Array.from(container.querySelectorAll('a[href], button, input, textarea, select, [tabindex]:not([tabindex="-1"])'));
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     });
   }
 
@@ -248,40 +289,58 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   if (courseModal && courseCards.length > 0) {
-    courseCards.forEach(card => {
-      card.addEventListener('click', () => {
-        const courseId = card.getAttribute('data-course-id');
-        const data = courseData[courseId];
-        
-        if (data) {
-          document.getElementById('courseModalStep').textContent = data.step;
-          document.getElementById('courseModalTitle').textContent = data.title;
-          document.getElementById('courseModalDesc').textContent = data.desc;
-          document.getElementById('courseModalLink').href = data.link;
-          
-          const featuresList = document.getElementById('courseModalFeatures');
-          featuresList.innerHTML = '';
-          data.features.forEach(feature => {
-            const li = document.createElement('li');
-            li.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0088FF" stroke-width="2" style="margin-right:8px;vertical-align:text-bottom;"><polyline points="20 6 9 17 4 12"></polyline></svg> ${feature}`;
-            featuresList.appendChild(li);
-          });
+    let lastFocusedCourseCard = null;
 
-          courseModal.classList.add('active');
-          document.body.style.overflow = 'hidden';
+    function openCourseModal(card) {
+      const courseId = card.getAttribute('data-course-id');
+      const data = courseData[courseId];
+      if (!data) return;
+
+      lastFocusedCourseCard = card;
+      document.getElementById('courseModalStep').textContent = data.step;
+      document.getElementById('courseModalTitle').textContent = data.title;
+      document.getElementById('courseModalDesc').textContent = data.desc;
+      document.getElementById('courseModalLink').href = data.link;
+
+      const featuresList = document.getElementById('courseModalFeatures');
+      featuresList.innerHTML = '';
+      data.features.forEach(feature => {
+        const li = document.createElement('li');
+        li.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0088FF" stroke-width="2" style="margin-right:8px;vertical-align:text-bottom;" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> ${feature}`;
+        featuresList.appendChild(li);
+      });
+
+      courseModal.classList.add('active');
+      courseModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      if (courseModalClose) courseModalClose.focus();
+    }
+
+    function closeCourseModal() {
+      courseModal.classList.remove('active');
+      courseModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocusedCourseCard) lastFocusedCourseCard.focus();
+    }
+
+    courseCards.forEach(card => {
+      card.addEventListener('click', () => openCourseModal(card));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openCourseModal(card);
         }
       });
     });
-
-    const closeCourseModal = () => {
-      courseModal.classList.remove('active');
-      document.body.style.overflow = '';
-    };
 
     if (courseModalClose) courseModalClose.addEventListener('click', closeCourseModal);
     courseModal.addEventListener('click', (e) => {
       if (e.target === courseModal) closeCourseModal();
     });
+    courseModal.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeCourseModal();
+    });
+    trapFocus(courseModal, closeCourseModal);
   }
 
   const quizModal = document.getElementById('quizModal');
@@ -380,7 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
     quizQuestion.innerHTML = `<div class="quiz-result-title">${result.title}</div>`;
     quizOptions.innerHTML = `
       <p class="quiz-result-desc">${result.desc}</p>
-      <a href="${result.link}" class="btn btn-primary" target="_blank" style="width:100%;">Enquire on WhatsApp</a>
+      <a href="${result.link}" class="btn btn-primary" target="_blank" rel="noopener noreferrer" style="width:100%;">Enquire on WhatsApp</a>
       <button class="btn btn-ghost" id="quizRestart" style="width:100%;margin-top:10px;">Retake Quiz</button>
     `;
     document.getElementById('quizRestart').addEventListener('click', () => {
@@ -391,17 +450,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  let lastFocusedBeforeQuiz = null;
+
   function openQuiz() {
+    lastFocusedBeforeQuiz = document.activeElement;
     quizModal.classList.add('active');
+    quizModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
     quizIndex = 0;
     quizScores = { starter: 0, professional: 0, specialist: 0 };
     quizProgressFill.style.width = '25%';
     renderQuizQuestion();
+    if (quizClose) quizClose.focus();
   }
   function closeQuiz() {
     quizModal.classList.remove('active');
+    quizModal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    if (lastFocusedBeforeQuiz && lastFocusedBeforeQuiz.focus) {
+      lastFocusedBeforeQuiz.focus();
+    }
   }
 
   if (quizOpenBtn) quizOpenBtn.addEventListener('click', openQuiz);
@@ -410,6 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
     quizModal.addEventListener('click', (e) => {
       if (e.target === quizModal) closeQuiz();
     });
+    trapFocus(quizModal, closeQuiz);
   }
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && quizModal && quizModal.classList.contains('active')) closeQuiz();
@@ -484,15 +553,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sync Lenis scroll with GSAP ScrollTrigger
     if (typeof ScrollTrigger !== 'undefined') {
       lenisInstance.on('scroll', ScrollTrigger.update);
-      
-      ScrollTrigger.scrollerProxy(document.body, {
-        scrollTop(value) {
-          return arguments.length ? lenisInstance.scrollTo(value, { immediate: true }) : lenisInstance.scroll;
-        },
-        getBoundingClientRect() {
-          return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
-        }
-      });
     }
     
     // Smooth scroll for anchor links
@@ -552,51 +612,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateCountdown, 60000);
   }
 
-  // ===== Marquee Pause on Hover =====
-  const marqueeTrack = document.getElementById('marqueeTrack');
-  if (marqueeTrack) {
-    const marqueeSection = marqueeTrack.closest('.marquee');
-    if (marqueeSection) {
-      marqueeSection.addEventListener('mouseenter', () => {
-        marqueeTrack.style.animationPlayState = 'paused';
-      });
-      marqueeSection.addEventListener('mouseleave', () => {
-        marqueeTrack.style.animationPlayState = 'running';
-      });
-    }
-  }
 
-  // ===== Newsletter Form =====
-  // NOTE: js/form-handler.js now manages form submissions to the n8n webhook.
-  // Only attach the local fallback UI handler if the webhook handler isn't present.
-  const newsletterForm = document.getElementById('newsletterForm');
-  if (newsletterForm && !newsletterForm.dataset.webhookAttached) {
-    newsletterForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const btn = newsletterForm.querySelector('button');
-      const original = btn.textContent;
-      btn.textContent = 'Subscribed';
-      btn.disabled = true;
-      setTimeout(() => {
-        btn.textContent = original;
-        btn.disabled = false;
-        newsletterForm.reset();
-      }, 3000);
-    });
-  }
-
-  // ===== Offer Timer =====
-  const offerTimer = document.getElementById('offerTimer');
-  if (offerTimer) {
-    let timeRemaining = 281; // 4 min 41 sec
-    setInterval(() => {
-      if (timeRemaining > 0) {
-        timeRemaining--;
-        const mins = Math.floor(timeRemaining / 60);
-        const secs = timeRemaining % 60;
-        offerTimer.textContent = `Offer expires in ${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-      }
-    }, 1000);
-  }
 });
 

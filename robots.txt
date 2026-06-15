@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
-Disallow: /legal/
+Disallow: /.git/
+Disallow: /rewire-academy/
+Disallow: /screenshots/
+Disallow: /scratch/
 
 Sitemap: https://rewire.academy/sitemap.xml

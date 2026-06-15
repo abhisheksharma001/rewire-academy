@@ -3,49 +3,1000 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rewire Academy — Professional Program</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  
+  <meta name="referrer" content="no-referrer-when-downgrade"><title>3-Month Applied AI Live — Rewire Academy</title>
+  <meta name="description" content="A 3-month live cohort for developers and product builders. Build real-world AI projects with agents, chatbots, RAG, and automated pipelines.">
+<link rel="canonical" href="https://rewire.academy/professional.html">
+<meta property="og:title" content="3-Month Applied AI Live — Rewire Academy">
+<meta property="og:description" content="A 3-month live cohort for developers and product builders. Build real-world AI projects with agents, chatbots, RAG, and automated pipelines.">
+<meta property="og:url" content="https://rewire.academy/professional.html">
+<meta property="og:image" content="https://rewire.academy/images/og-image.png">
+<meta name="twitter:title" content="3-Month Applied AI Live — Rewire Academy">
+<meta name="twitter:description" content="A 3-month live cohort for developers and product builders. Build real-world AI projects with agents, chatbots, RAG, and automated pipelines.">
+<meta name="twitter:image" content="https://rewire.academy/images/og-image.png">
+  <meta name="theme-color" content="#0A0A0C">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ui-avatars.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=12">
   <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 24px;
+    body { background-color: #050505; color: #fff; overflow-x: hidden; }
+
+    .hero-curriculum {
+      padding: 140px 24px 80px;
       text-align: center;
-      background: #0a0a0a;
+      background: radial-gradient(circle at 50% 0%, rgba(0, 136, 255, 0.12) 0%, transparent 70%);
     }
-    .card {
+
+    .hero-meta {
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 32px 0;
+    }
+    .hero-meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 10px 18px;
+      border-radius: 50px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+    }
+    .hero-meta-item strong { color: #fff; font-weight: 600; }
+
+    .section-dark { background: #050505; }
+    .section-dark .container { padding-top: 100px; padding-bottom: 100px; }
+    @media (max-width: 768px) { .section-dark .container { padding-top: 60px; padding-bottom: 60px; } }
+
+    .section-header { text-align: center; max-width: 720px; margin: 0 auto 64px; }
+
+    /* Timeline */
+    .timeline-container {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+      position: relative;
+    }
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(0,136,255,0.3), rgba(255,255,255,0.1));
+    }
+    .phase-marker {
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      margin: 60px 0 40px;
+    }
+    .phase-badge {
+      display: inline-block;
+      background: #0a0a0c;
+      border: 1px solid rgba(0, 136, 255, 0.5);
+      color: #0088ff;
+      padding: 8px 24px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(0, 136, 255, 0.2);
+    }
+    .week-card-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      padding: 24px 0;
+      position: relative;
+      width: 50%;
+      margin-left: 50%;
+    }
+    .week-card-wrapper:nth-child(even) {
+      justify-content: flex-start;
+      margin-left: 0;
+    }
+    .week-card-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 44px;
+      left: -6px;
+      width: 14px;
+      height: 14px;
+      background: #000;
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      z-index: 2;
+      box-shadow: 0 0 10px rgba(0,136,255,0.5);
+    }
+    .week-card-wrapper:nth-child(even)::before {
+      left: auto;
+      right: -8px;
+    }
+    .week-card {
+      width: 90%;
+      background: rgba(20, 20, 20, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 32px;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .week-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 136, 255, 0.4);
+    }
+    .week-number {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .week-title {
+      font-family: var(--serif);
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    .week-learn-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .week-learn-list li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.5;
+    }
+    .week-learn-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: rgba(255,255,255,0.3);
+    }
+
+    @media (max-width: 768px) {
+      .timeline-container::before { left: 24px; }
+      .week-card-wrapper, .week-card-wrapper:nth-child(even) {
+        width: 100%;
+        margin-left: 0;
+        justify-content: flex-end;
+      }
+      .week-card-wrapper::before, .week-card-wrapper:nth-child(even)::before {
+        left: 17px;
+        right: auto;
+      }
+      .week-card { width: calc(100% - 48px); }
+    }
+
+    /* Outcomes */
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .outcome-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      transition: all 0.4s var(--ease);
+    }
+    .outcome-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+    .outcome-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: rgba(8,146,208,0.1);
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .outcome-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    @media (max-width: 768px) { .outcomes-grid { grid-template-columns: 1fr; } }
+
+    /* Ideal for */
+    .ideal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .ideal-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.4s var(--ease);
+    }
+    .ideal-card:hover { border-color: var(--accent); }
+    .ideal-check {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(0,136,255,0.12);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .ideal-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .ideal-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+    @media (max-width: 768px) { .ideal-grid { grid-template-columns: 1fr; } }
+
+    /* Tools */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .tool-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      transition: all 0.3s var(--ease);
+    }
+    .tool-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .tool-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #222;
+      flex-shrink: 0;
+    }
+    .tool-name { font-size: 15px; font-weight: 600; }
+    .tool-role { font-size: 12px; color: var(--text-secondary); }
+    @media (max-width: 1024px) { .tools-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .tools-grid { grid-template-columns: 1fr; } }
+
+    /* Pricing */
+    .pricing-card {
+      max-width: 560px;
+      margin: 48px auto 0;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 24px;
       padding: 48px;
-      max-width: 600px;
-      backdrop-filter: blur(20px);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-    h1 {
-      font-family: var(--serif);
-      font-size: clamp(32px, 5vw, 48px);
-      margin-bottom: 16px;
-      color: #fff;
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(0,136,255,0.1), transparent 60%);
+      pointer-events: none;
     }
-    p {
+    .pricing-note {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin-bottom: 28px;
+    }
+    .pricing-features {
+      text-align: left;
+      max-width: 360px;
+      margin: 0 auto 32px;
+    }
+    .pricing-features li {
+      padding: 10px 0;
+      font-size: 14px;
       color: var(--text-secondary);
-      font-size: 16px;
-      line-height: 1.6;
-      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
     }
+    .pricing-features li:last-child { border-bottom: none; }
+    .pricing-features li::before {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 16px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230088FF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      flex-shrink: 0;
+    }
+
+    /* FAQ */
+    .faq-list {
+      max-width: 760px;
+      margin: 48px auto 0;
+    }
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .faq-question {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 24px;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: left;
+      color: #fff;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    .faq-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      transition: transform 0.3s var(--ease);
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s var(--ease), padding 0.35s var(--ease);
+    }
+    .faq-item.open .faq-answer {
+      max-height: 400px;
+      padding: 0 24px 24px;
+    }
+    .faq-answer p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Footer */
+    .page-footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 0;
+      text-align: center;
+    }
+    .page-footer-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .page-footer-links a {
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: color 0.3s;
+    }
+    .page-footer-links a:hover { color: #fff; }
+    .page-footer-email {
+      font-size: 14px;
+      color: var(--text-tertiary);
+    }
+    .page-footer-email a { color: var(--text-secondary); }
+    .page-footer-email a:hover { color: #fff; }
   </style>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/favicon.ico">
+<meta name="theme-color" content="#0A0A0C">
+<meta property="og:site_name" content="Rewire Academy">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- TODO: Replace with your GA4/GTM, Meta Pixel, LinkedIn Insight Tag IDs -->
+<script>
+  window.REWIRE_ANALYTICS = { enabled: false };
+  // Example: enable after adding GTM container ID
+  // (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'}); ... })(window,document,'script','dataLayer','GTM-XXXXXXX');
+</script>
 </head>
 <body>
-  <div class="card">
-    <div class="section-label" style="margin-bottom: 16px;">Professional Program</div>
-    <h1>Applied AI Live</h1>
-    <p>Our 3-month core live cohort for software developers, engineers, and product builders. Build 4 real-world AI projects (agents, custom chatbots, automated pipelines) with direct 1:1 mentorship feedback.</p>
-    <a href="register.html?course=3-Month%20Applied%20AI%20Live" class="btn btn-primary">Apply for Professional Program</a>
-  </div>
+
+  <!-- Skip to Main Content -->
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- Navigation (Minimal) -->
+  <nav class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">REWIRE ●</a>
+      <a href="index.html" class="btn btn-secondary">Back to Home</a>
+    </div>
+  </nav>
+
+  <main id="main">
+
+  <!-- Hero -->
+  <header class="hero-curriculum">
+    <div class="container">
+      <div class="section-label" style="margin-bottom: 16px;">Professional Program</div>
+      <h1 class="section-headline" style="margin-bottom: 20px; max-width: 900px; margin-left: auto; margin-right: auto; line-height: 1.1;">Applied AI Live</h1>
+      <p class="section-subheadline" style="max-width: 680px; margin: 0 auto 32px; font-size: 18px;">A 3-month live cohort for developers, engineers, and product builders who want to ship real AI systems — not just follow tutorials.</p>
+      <div class="hero-meta">
+        <span class="hero-meta-item"><strong>Duration:</strong> 3 Months</span>
+        <span class="hero-meta-item"><strong>Format:</strong> Live & Hands-on</span>
+        <span class="hero-meta-item"><strong>Projects:</strong> 4 Real Builds</span>
+      </div>
+      <a href="register.html?course=3-Month%20Applied%20AI%20Live" class="btn btn-primary" style="padding: 16px 40px; font-size: 16px;">Apply for the Cohort</a>
+    </div>
+  </header>
+
+  <!-- Curriculum -->
+  <section class="section-dark" id="curriculum">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">Curriculum</div>
+        <h2 class="section-headline">3 months. One shipped skill at a time.</h2>
+        <p class="section-subheadline" style="margin: 0 auto;">Every module combines live instruction, coding sessions, and a tangible deliverable you can add to your portfolio.</p>
+      </div>
+
+      <div class="timeline-container">
+
+        <div class="phase-marker reveal">
+          <div class="phase-badge">Phase 1: Foundations & LLM Engineering</div>
+        </div>
+
+        <div class="week-card-wrapper reveal">
+          <div class="week-card">
+            <div class="week-number">Week 1</div>
+            <h3 class="week-title">LLMs, Prompting & the AI Dev Stack</h3>
+            <ul class="week-learn-list">
+              <li>Understand transformer fundamentals, tokens, context windows, and model selection</li>
+              <li>Master advanced prompting: chain-of-thought, few-shot, role-based, and structured outputs</li>
+              <li>Set up a modern Python development environment for AI projects</li>
+              <li>Compare OpenAI, Anthropic, and open-source models for real tasks</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="week-card-wrapper reveal">
+          <div class="week-card">
+            <div class="week-number">Week 2</div>
+            <h3 class="week-title">APIs, Embeddings & Vector Search</h3>
+            <ul class="week-learn-list">
+              <li>Call OpenAI and Anthropic APIs securely with retries, streaming, and error handling</li>
+              <li>Generate and compare text embeddings for semantic similarity</li>
+              <li>Store and query vectors with Chroma, FAISS, and Pinecone</li>
+              <li>Build a semantic search engine over your own documents</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="week-card-wrapper reveal">
+          <div class="week-card">
+            <div class="week-number">Week 3</div>
+            <h3 class="week-title">Retrieval-Augmented Generation (RAG)</h3>
+            <ul class="week-learn-list">
+              <li>Chunk, embed, and index documents for production-grade retrieval</li>
+              <li>Build a full RAG pipeline with re-ranking and source attribution</li>
+              <li>Evaluate retrieval quality and reduce hallucinations with grounding</li>
+              <li>Deploy a RAG-backed Q&A app with a simple web interface</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="week-card-wrapper reveal">
+          <div class="week-card">
+            <div class="week-number">Week 4</div>
+            <h3 class="week-title">Custom Chatbots & Conversational UI</h3>
+            <ul class="week-learn-list">
+              <li>Design chatbots with memory, context management, and user intent parsing</li>
+              <li>Build a Streamlit or Gradio frontend for interactive demos</li>
+              <li>Implement system prompts, guardrails, and persona design</li>
+              <li>Package your chatbot as a shareable prototype</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="phase-marker reveal">
+          <div class="phase-badge">Phase 2: Agents, Tools & Automation</div>
+        </div>
+
+        <div class="week-card-wrapper reveal">
+          <div class="week-card">
+            <div class="week-number">Week 5</div>
+            <h3 class="week-title">AI Agents & Tool Use</h3>
+            <ul class="week-learn-list">
+              <li>Design agents that reason, plan, and call external tools</li>
+              <li>Connect LLMs to calculators, APIs, databases, and search engines</li>
+              <li>Build a ReAct-style agent from scratch and with LangChain agents</li>
+              <li>Handle tool failures, retries, and ambiguous user requests</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="week-card-wrapper reveal">
+          <div class="week-card">
+            <div class="week-number">Week 6</div>
+            <h3 class="week-title">LangChain, LangGraph & Orchestration</h3>
+            <ul class="week-learn-list">
+              <li>Chain prompts, models, and parsers with LangChain Expression Language</li>
+              <li>Model multi-step workflows as state machines with LangGraph</li>
+              <li>Build conditional loops, human-in-the-loop checkpoints, and parallel branches</li>
+              <li>Trace and debug agent runs with LangSmith</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="week-card-wrapper reveal">
+          <div class="week-card">
+            <div class="week-number">Week 7</div>
+            <h3 class="week-title">No-Code / Low-Code Automation</h3>
+            <ul class="week-learn-list">
+              <li>Automate business workflows with Make.com and n8n</li>
+              <li>Trigger AI actions from spreadsheets, emails, forms, and CRMs</li>
+              <li>Build a lead-qualification or content-publishing pipeline</li>
+              <li>Integrate no-code frontends with AI backends via webhooks</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="week-card-wrapper reveal">
+          <div class="week-card">
+            <div class="week-number">Week 8</div>
+            <h3 class="week-title">Voice, Vision & Multimodal AI</h3>
+            <ul class="week-learn-list">
+              <li>Process images with vision models for extraction, classification, and OCR</li>
+              <li>Build voice agents with speech-to-text, LLM reasoning, and text-to-speech</li>
+              <li>Create a document parser that combines PDF text, tables, and images</li>
+              <li>Deploy a multimodal assistant for customer support or operations</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="phase-marker reveal">
+          <div class="phase-badge">Phase 3: Production, Projects & Placement</div>
+        </div>
+
+        <div class="week-card-wrapper reveal">
+          <div class="week-card">
+            <div class="week-number">Week 9</div>
+            <h3 class="week-title">Evaluation, Observability & Safety</h3>
+            <ul class="week-learn-list">
+              <li>Benchmark LLM outputs with deterministic and model-based evals</li>
+              <li>Monitor latency, cost, token usage, and error rates in production</li>
+              <li>Add guardrails, PII filtering, and content moderation</li>
+              <li>Set up logging and tracing for continuous improvement</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="week-card-wrapper reveal">
+          <div class="week-card">
+            <div class="week-number">Week 10</div>
+            <h3 class="week-title">Deployment & Productionizing Apps</h3>
+            <ul class="week-learn-list">
+              <li>Containerize and deploy AI apps with FastAPI, Docker, and cloud platforms</li>
+              <li>Build async job queues for long-running generation tasks</li>
+              <li>Manage secrets, environment configs, and API rate limits</li>
+              <li>Publish a live app with a public URL and basic authentication</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="week-card-wrapper reveal">
+          <div class="week-card">
+            <div class="week-number">Week 11</div>
+            <h3 class="week-title">Capstone Project Sprint</h3>
+            <ul class="week-learn-list">
+              <li>Choose a real-world problem: internal copilot, support agent, or automation suite</li>
+              <li>Architect the solution end-to-end with your mentor's feedback</li>
+              <li>Ship a working MVP with code, documentation, and demo video</li>
+              <li>Prepare your project for portfolio and interviews</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="week-card-wrapper reveal">
+          <div class="week-card">
+            <div class="week-number">Week 12</div>
+            <h3 class="week-title">Demo Day, Career Prep & Next Steps</h3>
+            <ul class="week-learn-list">
+              <li>Present your capstone to peers and mentors for live feedback</li>
+              <li>Refine your resume, GitHub, and LinkedIn for AI engineering roles</li>
+              <li>Practice mock interviews for AI engineer and product positions</li>
+              <li>Join the alumni network and ongoing project opportunities</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Outcomes -->
+  <section class="section-dark" id="outcomes" style="border-top: 1px solid rgba(255,255,255,0.05);">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">Outcomes</div>
+        <h2 class="section-headline">What you'll be able to do.</h2>
+        <p class="section-subheadline" style="margin: 0 auto;">By the end of the cohort, you won't just understand AI — you'll have shipped with it.</p>
+      </div>
+      <div class="outcomes-grid">
+        <div class="outcome-card reveal">
+          <div class="outcome-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+          </div>
+          <div class="outcome-title">Build Production RAG Systems</div>
+          <p class="outcome-desc">Design, evaluate, and deploy retrieval pipelines that ground LLMs in real company data.</p>
+        </div>
+        <div class="outcome-card reveal">
+          <div class="outcome-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+          </div>
+          <div class="outcome-title">Ship Autonomous Agents</div>
+          <p class="outcome-desc">Create goal-driven agents with tool use, memory, and multi-step reasoning using LangChain and LangGraph.</p>
+        </div>
+        <div class="outcome-card reveal">
+          <div class="outcome-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          </div>
+          <div class="outcome-title">Integrate AI into Existing Products</div>
+          <p class="outcome-desc">Add LLM features to web apps, automate internal workflows, and build AI-powered user experiences.</p>
+        </div>
+        <div class="outcome-card reveal">
+          <div class="outcome-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <div class="outcome-title">Work as an AI Engineer</div>
+          <p class="outcome-desc">Deploy, monitor, and iterate on AI systems with the workflows used by top engineering teams.</p>
+        </div>
+        <div class="outcome-card reveal">
+          <div class="outcome-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          </div>
+          <div class="outcome-title">Own a Portfolio of 4 Projects</div>
+          <p class="outcome-desc">Walk away with shipped code, demos, and documentation you can show in interviews and on GitHub.</p>
+        </div>
+        <div class="outcome-card reveal">
+          <div class="outcome-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          </div>
+          <div class="outcome-title">Choose the Right Model & Stack</div>
+          <p class="outcome-desc">Make informed trade-offs between cost, latency, accuracy, and privacy for any AI use case.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ideal For -->
+  <section class="section-dark" id="ideal-for" style="border-top: 1px solid rgba(255,255,255,0.05);">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">Who It's For</div>
+        <h2 class="section-headline">Built for builders.</h2>
+        <p class="section-subheadline" style="margin: 0 auto;">This cohort is designed for people who want to go from "AI curious" to "AI capable."</p>
+      </div>
+      <div class="ideal-grid">
+        <div class="ideal-card reveal">
+          <div class="ideal-check">✓</div>
+          <div>
+            <div class="ideal-title">Software Developers</div>
+            <div class="ideal-desc">Add LLMs, agents, and AI APIs to your existing backend and full-stack skill set.</div>
+          </div>
+        </div>
+        <div class="ideal-card reveal">
+          <div class="ideal-check">✓</div>
+          <div>
+            <div class="ideal-title">Engineers & Architects</div>
+            <div class="ideal-desc">Design production-grade AI systems with proper evaluation, monitoring, and deployment.</div>
+          </div>
+        </div>
+        <div class="ideal-card reveal">
+          <div class="ideal-check">✓</div>
+          <div>
+            <div class="ideal-title">Product Managers & Founders</div>
+            <div class="ideal-desc">Prototype and validate AI features without depending entirely on an engineering team.</div>
+          </div>
+        </div>
+        <div class="ideal-card reveal">
+          <div class="ideal-check">✓</div>
+          <div>
+            <div class="ideal-title">Data Professionals</div>
+            <div class="ideal-desc">Move beyond dashboards into intelligent apps, automations, and conversational interfaces.</div>
+          </div>
+        </div>
+        <div class="ideal-card reveal">
+          <div class="ideal-check">✓</div>
+          <div>
+            <div class="ideal-title">Career Switchers</div>
+            <div class="ideal-desc">Build a credible AI portfolio and transition into AI engineering or product roles.</div>
+          </div>
+        </div>
+        <div class="ideal-card reveal">
+          <div class="ideal-check">✓</div>
+          <div>
+            <div class="ideal-title">Tech Leads & CTOs</div>
+            <div class="ideal-desc">Understand what AI can realistically deliver and how to integrate it into your product roadmap.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools Covered -->
+  <section class="section-dark" id="tools" style="border-top: 1px solid rgba(255,255,255,0.05);">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">Tools & Technologies</div>
+        <h2 class="section-headline">The stack you'll actually use.</h2>
+        <p class="section-subheadline" style="margin: 0 auto;">We focus on tools that are in demand right now — and that you'll keep using after the cohort.</p>
+      </div>
+      <div class="tools-grid">
+        <div class="tool-card reveal">
+          <img src="https://ui-avatars.com/api/?name=ChatGPT&background=10A37F&color=fff&rounded=true&bold=true&size=128" alt="ChatGPT logo" class="tool-logo" loading="lazy" decoding="async">
+          <div><div class="tool-name">ChatGPT</div><div class="tool-role">Prompting & Prototyping</div></div>
+        </div>
+        <div class="tool-card reveal">
+          <img src="https://ui-avatars.com/api/?name=Claude&background=D97757&color=fff&rounded=true&bold=true&size=128" alt="Claude logo" class="tool-logo" loading="lazy" decoding="async">
+          <div><div class="tool-name">Claude</div><div class="tool-role">Reasoning & Coding Assistant</div></div>
+        </div>
+        <div class="tool-card reveal">
+          <img src="https://ui-avatars.com/api/?name=Python&background=3776AB&color=fff&rounded=true&bold=true&size=128" alt="Python logo" class="tool-logo" loading="lazy" decoding="async">
+          <div><div class="tool-name">Python</div><div class="tool-role">Core Language</div></div>
+        </div>
+        <div class="tool-card reveal">
+          <img src="https://ui-avatars.com/api/?name=OpenAI&background=000000&color=fff&rounded=true&bold=true&size=128" alt="OpenAI API logo" class="tool-logo" loading="lazy" decoding="async">
+          <div><div class="tool-name">OpenAI API</div><div class="tool-role">LLM Integration</div></div>
+        </div>
+        <div class="tool-card reveal">
+          <img src="https://ui-avatars.com/api/?name=LangChain&background=1C3C3C&color=fff&rounded=true&bold=true&size=128" alt="LangChain logo" class="tool-logo" loading="lazy" decoding="async">
+          <div><div class="tool-name">LangChain</div><div class="tool-role">Agents & Chains</div></div>
+        </div>
+        <div class="tool-card reveal">
+          <img src="https://ui-avatars.com/api/?name=LangGraph&background=3B82F6&color=fff&rounded=true&bold=true&size=128" alt="LangGraph logo" class="tool-logo" loading="lazy" decoding="async">
+          <div><div class="tool-name">LangGraph</div><div class="tool-role">Workflow Orchestration</div></div>
+        </div>
+        <div class="tool-card reveal">
+          <img src="https://ui-avatars.com/api/?name=Vector+DB&background=7C3AED&color=fff&rounded=true&bold=true&size=128" alt="Vector DB logo" class="tool-logo" loading="lazy" decoding="async">
+          <div><div class="tool-name">Chroma / Pinecone</div><div class="tool-role">Vector Stores</div></div>
+        </div>
+        <div class="tool-card reveal">
+          <img src="https://ui-avatars.com/api/?name=n8n&background=EA4335&color=fff&rounded=true&bold=true&size=128" alt="n8n logo" class="tool-logo" loading="lazy" decoding="async">
+          <div><div class="tool-name">n8n / Make</div><div class="tool-role">Automation Pipelines</div></div>
+        </div>
+        <div class="tool-card reveal">
+          <img src="https://ui-avatars.com/api/?name=FastAPI&background=009688&color=fff&rounded=true&bold=true&size=128" alt="FastAPI logo" class="tool-logo" loading="lazy" decoding="async">
+          <div><div class="tool-name">FastAPI</div><div class="tool-role">AI Backend APIs</div></div>
+        </div>
+        <div class="tool-card reveal">
+          <img src="https://ui-avatars.com/api/?name=Docker&background=2496ED&color=fff&rounded=true&bold=true&size=128" alt="Docker logo" class="tool-logo" loading="lazy" decoding="async">
+          <div><div class="tool-name">Docker</div><div class="tool-role">Deployment</div></div>
+        </div>
+        <div class="tool-card reveal">
+          <img src="https://ui-avatars.com/api/?name=Streamlit&background=FF4B4B&color=fff&rounded=true&bold=true&size=128" alt="Streamlit logo" class="tool-logo" loading="lazy" decoding="async">
+          <div><div class="tool-name">Streamlit / Gradio</div><div class="tool-role">AI Frontends</div></div>
+        </div>
+        <div class="tool-card reveal">
+          <img src="https://ui-avatars.com/api/?name=GitHub&background=181717&color=fff&rounded=true&bold=true&size=128" alt="GitHub logo" class="tool-logo" loading="lazy" decoding="async">
+          <div><div class="tool-name">GitHub</div><div class="tool-role">Version Control & Portfolio</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section-dark" id="pricing" style="border-top: 1px solid rgba(255,255,255,0.05);">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">Investment</div>
+        <h2 class="section-headline">A serious program for serious outcomes.</h2>
+        <p class="section-subheadline" style="margin: 0 auto;">Pricing reflects live instruction, mentorship, and the projects you ship. Contact us for the latest cohort pricing and EMI options.</p>
+      </div>
+      <div class="pricing-card reveal">
+        <div class="section-label" style="margin-bottom: 4px;">3-Month Applied AI Live</div>
+        <div class="pricing-amount">₹75,000</div>
+        <div class="pricing-note">One-time investment · Taxes applicable · EMI options available</div>
+        <ul class="pricing-features">
+          <li>36+ hours of live instruction</li>
+          <li>4 real-world portfolio projects</li>
+          <li>Weekly 1:1 mentor checkpoints</li>
+          <li>Private community & alumni access</li>
+          <li>Certificate of completion</li>
+          <li>Interview & resume support</li>
+        </ul>
+        <a href="register.html?course=3-Month%20Applied%20AI%20Live" class="btn btn-primary" style="padding: 16px 40px; font-size: 16px;">Apply for the Cohort</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section-dark" id="faq" style="border-top: 1px solid rgba(255,255,255,0.05);">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">FAQ</div>
+        <h2 class="section-headline">Questions? Answered.</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            What is the weekly schedule?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>We run 2–3 live sessions per week, mostly on weekday evenings or weekends to accommodate working professionals. Each session is 2–3 hours with hands-on coding and Q&A. Recordings are shared within 24 hours.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            What are the prerequisites?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>You should be comfortable with basic programming (any language). Familiarity with Python is helpful but not mandatory — we cover the essentials in Week 1. A laptop, stable internet, and curiosity are required.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            Will I get a certificate?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. Everyone who completes the program and submits the capstone project receives a verified certificate of completion from Rewire Academy.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            What is the refund policy?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Full refund within 7 days of the cohort start date if you attend all sessions and feel the program isn't right for you. See our <a href="legal/refund.html" style="color: var(--accent);">Refund Policy</a> for full terms.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            Is this fully live or pre-recorded?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Applied AI Live is fully live and interactive. You code alongside the instructor, ask questions in real time, and get feedback on your projects during live reviews.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="section-padding" style="text-align: center; border-top: 1px solid rgba(255,255,255,0.05); background: radial-gradient(circle at 50% 0%, rgba(0, 136, 255, 0.08) 0%, transparent 60%);">
+    <div class="container reveal">
+      <h2 style="font-family: var(--serif); font-size: clamp(28px, 4vw, 40px); margin-bottom: 16px;">Ready to build with AI?</h2>
+      <p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 32px;">Apply for the next cohort of Applied AI Live. Seats are limited and batches are deliberately small.</p>
+      <a href="register.html?course=3-Month%20Applied%20AI%20Live" class="btn btn-primary" style="padding: 18px 48px; font-size: 16px;">Apply for Applied AI Live</a>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">REWIRE ACADEMY ●</div>
+          <p class="footer-tagline" style="margin-bottom:16px;">An elite, project-based studio for mastering applied AI. Live, deliberate, and deliberately small.</p>
+          <div style="color:var(--text-secondary); font-size:0.9rem; line-height:1.6; margin-bottom:16px;">
+            📧 <a href="mailto:hello@rewire.academy" style="color:inherit;">hello@rewire.academy</a><br>
+            💬 WhatsApp available on request
+          </div>
+          <div style="color:var(--text-secondary); font-size:0.8rem; line-height:1.6; margin-bottom:16px;">
+            A unit of Rewire Education Pvt. Ltd.<br>
+            Bangalore, India
+          </div>
+          <div class="footer-social">
+            <a href="https://linkedin.com/company/rewire-academy" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+            <a href="https://twitter.com/rewire_academy" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg></a>
+            <a href="https://youtube.com/@rewire_academy" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-title">Programs</div>
+          <ul class="footer-links">
+            <li><a href="free-class.html">Free Mastermind</a></li>
+            <li><a href="starter.html">Starter</a></li>
+            <li><a href="professional.html">Professional</a></li>
+            <li><a href="specialist.html">Specialist</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-title">Company</div>
+          <ul class="footer-links">
+            <li><a href="index.html#business">For Business</a></li>
+            <li><a href="index.html#journey">About Us</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-title">Legal</div>
+          <ul class="footer-links">
+            <li><a href="legal/privacy.html">Privacy Policy</a></li>
+            <li><a href="legal/terms.html">Terms of Use</a></li>
+            <li><a href="legal/refund.html">Refund Policy</a></li>
+            <li><a href="legal/cookie.html">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Rewire Education Pvt. Ltd. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(reveal => observer.observe(reveal));
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const item = button.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          button.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // Nav scroll state
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+  </script>
 </body>
 </html>

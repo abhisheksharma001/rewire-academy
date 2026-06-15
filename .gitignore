@@ -1,0 +1,11 @@
+# Dependencies
+node_modules/
+scratch/node_modules/
+rewire-academy/node_modules/
+
+# Generated
+screenshots/
+*.log
+__pycache__/
+.DS_Store
+.env
