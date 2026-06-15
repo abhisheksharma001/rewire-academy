@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rewire Academy — Register for Mastermind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html { height: 100%; font-family: var(--sans); }
+    
+    .split-layout {
+      display: flex;
+      height: 100vh;
+    }
+    
+    .left-panel {
+      flex: 1;
+      background: var(--obsidian);
+      color: var(--text-primary);
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 80px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .left-content {
+      position: relative;
+      z-index: 2;
+      max-width: 500px;
+    }
+    
+    .left-title {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+    
+    .left-desc {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+    }
+
+    /* Geometric Background Elements */
+    .bg-pattern {
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 600px;
+      height: 600px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      opacity: 0.1;
+      transform: rotate(15deg);
+    }
+    .pattern-dot {
+      width: 120px;
+      height: 120px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .pattern-star {
+      width: 120px;
+      height: 120px;
+      background: var(--accent);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+
+    .right-panel {
+      flex: 1;
+      background: #ffffff;
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-container {
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .form-label span {
+      color: #ef4444;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 16px;
+      font-family: inherit;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #0088ff;
+    }
+
+    .phone-input {
+      display: flex;
+    }
+    .phone-prefix {
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      background: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-right: none;
+      border-radius: 8px 0 0 8px;
+      font-size: 16px;
+      color: #333;
+    }
+    .phone-input .form-control {
+      border-radius: 0 8px 8px 0;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: background 0.3s ease;
+    }
+
+    .btn-submit:hover {
+      background: #0077e6;
+    }
+
+    .terms-text {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    .terms-text a {
+      color: #333;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .split-layout { flex-direction: column; height: auto; }
+      .left-panel, .right-panel { padding: 40px 24px; }
+      .left-panel { min-height: 400px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="split-layout">
+    
+    <!-- Left Panel -->
+    <div class="left-panel">
+      <div class="bg-pattern">
+        <div class="pattern-dot"></div>
+        <div class="pattern-dot"></div>
+        <div class="pattern-star"></div>
+        <div class="pattern-dot"></div>
+        <div class="pattern-dot"></div>
+        <div class="pattern-dot"></div>
+      </div>
+
+      <div class="logo">REWIRE ●</div>
+      
+      <div class="left-content">
+        <h1 class="left-title">Join the 3-Hour LIVE AI Training</h1>
+        <p class="left-desc">Master AI to become 10x more efficient, improve productivity and future proof career! Register to join the Training happening exclusively for you!</p>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+      <div class="form-container">
+        
+        <form id="registerForm" data-keyword="registration" action="#" method="POST">
+
+          <div class="form-group">
+            <label class="form-label">Course you're interested in <span>*</span></label>
+            <select name="course" id="courseField" class="form-control" required>
+              <option value="3-Hour Gen-AI Mastermind">Free 3-Hour Gen-AI Mastermind</option>
+              <option value="14-Day AI Generalist Accelerator">14-Day AI Generalist Accelerator</option>
+              <option value="3-Month Applied AI Live">3-Month Applied AI Live</option>
+              <option value="6-Month AI Engineering Specialist">6-Month AI Engineering Specialist</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Full Name <span>*</span></label>
+            <input type="text" name="full_name" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email Address <span>*</span></label>
+            <input type="email" name="email" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Contact Number <span>*</span></label>
+            <div class="phone-input">
+              <div class="phone-prefix">🇮🇳 +91</div>
+              <input type="tel" name="phone" class="form-control" placeholder="081234 56789" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit">Next</button>
+        </form>
+
+        <p class="terms-text">
+          By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Pre-select course from URL parameter
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const courseParam = params.get('course');
+      if (courseParam) {
+        const courseField = document.getElementById('courseField');
+        const options = Array.from(courseField.options);
+        const match = options.find(option => option.value.toLowerCase() === decodeURIComponent(courseParam).toLowerCase());
+        if (match) courseField.value = match.value;
+      }
+    })();
+  </script>
+  <script src="js/form-handler.js?v=2"></script>
+</body>
+</html>

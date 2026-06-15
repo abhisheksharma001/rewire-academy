@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rewire Bharat: AI Generalist Accelerator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Custom Timeline Styles */
+    body { background-color: #050505; color: #fff; overflow-x: hidden; }
+    .hero-curriculum {
+      padding: 120px 24px 60px;
+      text-align: center;
+      background: radial-gradient(circle at 50% 0%, rgba(0, 136, 255, 0.1) 0%, transparent 70%);
+    }
+    .timeline-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 24px 100px;
+      position: relative;
+    }
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(0,136,255,0.3), rgba(255,255,255,0.1));
+    }
+    .phase-marker {
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      margin: 60px 0 40px;
+    }
+    .phase-badge {
+      display: inline-block;
+      background: #0a0a0c;
+      border: 1px solid rgba(0, 136, 255, 0.5);
+      color: #0088ff;
+      padding: 8px 24px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(0, 136, 255, 0.2);
+    }
+    .day-card-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      padding: 30px 0;
+      position: relative;
+      width: 50%;
+      margin-left: 50%;
+    }
+    .day-card-wrapper:nth-child(even) {
+      justify-content: flex-start;
+      margin-left: 0;
+    }
+    .day-card-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 50px;
+      left: -6px;
+      width: 14px;
+      height: 14px;
+      background: #000;
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      z-index: 2;
+      box-shadow: 0 0 10px rgba(0,136,255,0.5);
+    }
+    .day-card-wrapper:nth-child(even)::before {
+      left: auto;
+      right: -8px;
+    }
+    .day-card {
+      width: 90%;
+      background: rgba(20, 20, 20, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 32px;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .day-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 136, 255, 0.4);
+    }
+    .day-number {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .day-title {
+      font-family: var(--serif);
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    .day-learn-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px 0;
+    }
+    .day-learn-list li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.5;
+    }
+    .day-learn-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: rgba(255,255,255,0.3);
+    }
+    .tool-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 20px;
+    }
+    .tool-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.03);
+      padding: 6px 12px 6px 6px;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.05);
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+    }
+    .tool-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #222;
+    }
+    
+    @media (max-width: 768px) {
+      .timeline-container::before {
+        left: 24px;
+      }
+      .day-card-wrapper, .day-card-wrapper:nth-child(even) {
+        width: 100%;
+        margin-left: 0;
+        justify-content: flex-end;
+      }
+      .day-card-wrapper::before, .day-card-wrapper:nth-child(even)::before {
+        left: 17px;
+        right: auto;
+      }
+      .day-card {
+        width: calc(100% - 48px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation (Minimal) -->
+  <nav class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">REWIRE ●</a>
+      <a href="index.html" class="btn btn-secondary">Back to Home</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero-curriculum">
+    <div class="container">
+      <div class="section-label" style="margin-bottom: 16px;">Rewire Bharat</div>
+      <h1 class="section-headline" style="margin-bottom: 24px; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.2;">AI Generalist Accelerator</h1>
+      <p class="section-subheadline" style="max-width: 600px; margin: 0 auto 40px;">Comprehensive 14-Day Curriculum & Strategic Roadmap. Master the foundation of AI workflows, from basic prompting to simple automations.</p>
+      <div style="display: flex; justify-content: center; gap: 24px; font-size: 14px; color: rgba(255,255,255,0.6);">
+        <span><strong style="color:#fff;">Duration:</strong> 14 Days Continuous</span>
+        <span><strong style="color:#fff;">Format:</strong> Live & Hands-on</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Timeline -->
+  <section class="timeline-container">
+
+    <div class="phase-marker reveal">
+      <div class="phase-badge">Phase 1: Foundations & Creative Intelligence</div>
+    </div>
+
+    <div class="day-card-wrapper reveal">
+      <div class="day-card">
+        <div class="day-number">Day 1</div>
+        <h3 class="day-title">Foundations of AI & LLMs</h3>
+        <ul class="day-learn-list">
+          <li>Master core prompting techniques like role-based and context-driven frameworks</li>
+          <li>Learn how core language models understand and process text</li>
+          <li>Use simple rules to perform regular daily tasks</li>
+        </ul>
+        <div class="tool-grid">
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=ChatGPT&background=10A37F&color=fff&rounded=true&bold=true&size=128" alt="ChatGPT logo" class="tool-icon">
+            <span>ChatGPT</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Gemini&background=1A73E8&color=fff&rounded=true&bold=true&size=128" alt="Gemini logo" class="tool-icon">
+            <span>Gemini</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Claude&background=D97757&color=fff&rounded=true&bold=true&size=128" alt="Claude logo" class="tool-icon">
+            <span>Claude</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-wrapper reveal">
+      <div class="day-card">
+        <div class="day-number">Day 2</div>
+        <h3 class="day-title">Creating Marketing Copy & Visuals</h3>
+        <ul class="day-learn-list">
+          <li>Use dedicated AI writing tools to generate high-converting marketing copy</li>
+          <li>Create effective descriptive prompts for modern AI image generators</li>
+          <li>Design professional visual assets for your brand and social media</li>
+        </ul>
+        <div class="tool-grid">
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=ChatGPT&background=10A37F&color=fff&rounded=true&bold=true&size=128" alt="ChatGPT logo" class="tool-icon">
+            <span>ChatGPT</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Copy.ai&background=2D3136&color=fff&rounded=true&bold=true&size=128" alt="Copy.ai logo" class="tool-icon">
+            <span>Copy.ai</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Midjourney&background=FFFFFF&color=000&rounded=true&bold=true&size=128" alt="Midjourney logo" class="tool-icon">
+            <span>Midjourney</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-wrapper reveal">
+      <div class="day-card">
+        <div class="day-number">Day 3</div>
+        <h3 class="day-title">AI for Daily Office/Class Work</h3>
+        <ul class="day-learn-list">
+          <li>Use native AI features directly inside your daily Office applications</li>
+          <li>Automate basic document formatting and work with spreadsheets much faster</li>
+          <li>Streamline regular email communication routines using cloud-based smart tools</li>
+        </ul>
+        <div class="tool-grid">
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Microsoft+Copilot&background=0078D4&color=fff&rounded=true&bold=true&size=128" alt="Microsoft Copilot logo" class="tool-icon">
+            <span>Microsoft Copilot</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Gemini+Work&background=1A73E8&color=fff&rounded=true&bold=true&size=128" alt="Gemini Work logo" class="tool-icon">
+            <span>Gemini Work</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-wrapper reveal">
+      <div class="day-card">
+        <div class="day-number">Day 4</div>
+        <h3 class="day-title">AI Video Creation</h3>
+        <ul class="day-learn-list">
+          <li>Write clear prompts to generate short high-quality video clips</li>
+          <li>Turn text ideas into engaging commercial marketing footage</li>
+          <li>Produce professional motion clips without expensive recording studio setups</li>
+        </ul>
+        <div class="tool-grid">
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Kling&background=E50914&color=fff&rounded=true&bold=true&size=128" alt="Kling logo" class="tool-icon">
+            <span>Kling</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Sora&background=000000&color=fff&rounded=true&bold=true&size=128" alt="Sora logo" class="tool-icon">
+            <span>Sora</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-wrapper reveal">
+      <div class="day-card">
+        <div class="day-number">Day 5</div>
+        <h3 class="day-title">AI Presentation Decks & Job Roles</h3>
+        <ul class="day-learn-list">
+          <li>Build complete presentation slide decks dynamically from text prompts</li>
+          <li>Design professional presentation layouts instantly using intelligent presentation software</li>
+          <li>Apply customized AI assistants to speed up your specific job</li>
+        </ul>
+        <div class="tool-grid">
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Gamma&background=FF6B6B&color=fff&rounded=true&bold=true&size=128" alt="Gamma logo" class="tool-icon">
+            <span>Gamma</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Genspark&background=4ECDC4&color=fff&rounded=true&bold=true&size=128" alt="Genspark logo" class="tool-icon">
+            <span>Genspark</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-wrapper reveal">
+      <div class="day-card">
+        <div class="day-number">Day 6</div>
+        <h3 class="day-title">Personal Productivity & Workspaces</h3>
+        <ul class="day-learn-list">
+          <li>Create automated personal routines to track your daily tasks</li>
+          <li>Organize your personal notes and project files into smart folders</li>
+          <li>Build custom everyday workflow assistants to save time each week</li>
+        </ul>
+        <div class="tool-grid">
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Claude&background=D97757&color=fff&rounded=true&bold=true&size=128" alt="Claude logo" class="tool-icon">
+            <span>Claude</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=ChatGPT&background=10A37F&color=fff&rounded=true&bold=true&size=128" alt="ChatGPT logo" class="tool-icon">
+            <span>ChatGPT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-wrapper reveal">
+      <div class="day-card">
+        <div class="day-number">Day 7</div>
+        <h3 class="day-title">Automated Voice Agents</h3>
+        <ul class="day-learn-list">
+          <li>Setup and run human-sounding voice bots to handle phone calls</li>
+          <li>Create automated voice solutions for standard business customer conversations</li>
+          <li>Manage easy call routes for basic inbound and outbound requests</li>
+        </ul>
+        <div class="tool-grid">
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Retell+AI&background=845EC2&color=fff&rounded=true&bold=true&size=128" alt="Retell AI logo" class="tool-icon">
+            <span>Retell AI</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=ElevenLabs&background=000000&color=fff&rounded=true&bold=true&size=128" alt="ElevenLabs logo" class="tool-icon">
+            <span>ElevenLabs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-marker reveal">
+      <div class="phase-badge">Phase 2: Avatars, Agents & Automation</div>
+    </div>
+
+    <div class="day-card-wrapper reveal">
+      <div class="day-card">
+        <div class="day-number">Day 8</div>
+        <h3 class="day-title">Digital Twins & AI Avatars</h3>
+        <ul class="day-learn-list">
+          <li>Create customized digital talking clones that mimic real human speakers</li>
+          <li>Build lifelike presentation avatars for scalable digital video content production</li>
+          <li>Convert text scripts directly into video files without using cameras</li>
+        </ul>
+        <div class="tool-grid">
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=HeyGen&background=7B2CBF&color=fff&rounded=true&bold=true&size=128" alt="HeyGen logo" class="tool-icon">
+            <span>HeyGen</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Synthesia&background=2A9D8F&color=fff&rounded=true&bold=true&size=128" alt="Synthesia logo" class="tool-icon">
+            <span>Synthesia</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-wrapper reveal">
+      <div class="day-card">
+        <div class="day-number">Day 9</div>
+        <h3 class="day-title">Custom AI Assistants (Custom GPTs)</h3>
+        <ul class="day-learn-list">
+          <li>Write custom instructions to guide your unique AI chatbot persona.</li>
+          <li>Upload personal business files to build a private knowledge base.</li>
+          <li>Create specialized AI assistants customized for your daily routine tasks.</li>
+        </ul>
+        <div class="tool-grid">
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=ChatGPT&background=10A37F&color=fff&rounded=true&bold=true&size=128" alt="ChatGPT logo" class="tool-icon">
+            <span>ChatGPT</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Gemini&background=1A73E8&color=fff&rounded=true&bold=true&size=128" alt="Gemini logo" class="tool-icon">
+            <span>Gemini</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Claude&background=D97757&color=fff&rounded=true&bold=true&size=128" alt="Claude logo" class="tool-icon">
+            <span>Claude</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-wrapper reveal">
+      <div class="day-card">
+        <div class="day-number">Day 10</div>
+        <h3 class="day-title">Simple Automation with Zapier</h3>
+        <ul class="day-learn-list">
+          <li>Connect your favorite everyday software applications together using cloud tools.</li>
+          <li>Send automated text data instantly from one app to another.</li>
+          <li>Setup simple triggers to run background workflows while you sleep.</li>
+        </ul>
+        <div class="tool-grid">
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Zapier&background=FF4F00&color=fff&rounded=true&bold=true&size=128" alt="Zapier logo" class="tool-icon">
+            <span>Zapier</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=LLM+Integration&background=2B2B2B&color=fff&rounded=true&bold=true&size=128" alt="LLM Integration logo" class="tool-icon">
+            <span>LLM Integration</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-wrapper reveal">
+      <div class="day-card">
+        <div class="day-number">Day 11</div>
+        <h3 class="day-title">Multi-Step Automation with Make.com</h3>
+        <ul class="day-learn-list">
+          <li>Build visual step-by-step automations to move data between platforms.</li>
+          <li>Launch a working social media automation project to publish content.</li>
+          <li>Schedule automated workflows that generate and format regular daily posts.</li>
+        </ul>
+        <div class="tool-grid">
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Make.com&background=5B2B82&color=fff&rounded=true&bold=true&size=128" alt="Make.com logo" class="tool-icon">
+            <span>Make.com</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=AI+Content&background=4B90FF&color=fff&rounded=true&bold=true&size=128" alt="AI Content logo" class="tool-icon">
+            <span>AI Content</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-wrapper reveal">
+      <div class="day-card">
+        <div class="day-number">Day 12</div>
+        <h3 class="day-title">Simple AI Agents with n8n</h3>
+        <ul class="day-learn-list">
+          <li>Build connected app networks using visual workflow execution blocks easily.</li>
+          <li>Create a simple autonomous agent that can choose its own tasks.</li>
+          <li>Automate repetitive daily operational tasks with smart self-running node systems.</li>
+        </ul>
+        <div class="tool-grid">
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=n8n&background=EA4335&color=fff&rounded=true&bold=true&size=128" alt="n8n logo" class="tool-icon">
+            <span>n8n</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=AI+Copilots&background=00C853&color=fff&rounded=true&bold=true&size=128" alt="AI Copilots logo" class="tool-icon">
+            <span>AI Copilots</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-wrapper reveal">
+      <div class="day-card">
+        <div class="day-number">Day 13</div>
+        <h3 class="day-title">Building a Website with AI (Vibe Coding)</h3>
+        <ul class="day-learn-list">
+          <li>Design and launch complete web applications purely through simple text.</li>
+          <li>Build your personal portfolio webpage using conversational software development tools.</li>
+          <li>Modify customer landing page designs without writing any confusing code.</li>
+        </ul>
+        <div class="tool-grid">
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Lovable&background=FF007A&color=fff&rounded=true&bold=true&size=128" alt="Lovable logo" class="tool-icon">
+            <span>Lovable</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Bolt.new&background=F2B705&color=fff&rounded=true&bold=true&size=128" alt="Bolt.new logo" class="tool-icon">
+            <span>Bolt.new</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-wrapper reveal">
+      <div class="day-card">
+        <div class="day-number">Day 14</div>
+        <h3 class="day-title">Freelancing & Getting Clients</h3>
+        <ul class="day-learn-list">
+          <li>Set up freelance marketplace profiles for high online search visibility.</li>
+          <li>Master direct LinkedIn outreach to pitch and connect with high-value prospects.</li>
+          <li>Build a reliable business sales funnel to sell your services.</li>
+        </ul>
+        <div class="tool-grid">
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Fiverr&background=00B22D&color=fff&rounded=true&bold=true&size=128" alt="Fiverr logo" class="tool-icon">
+            <span>Fiverr</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=Upwork&background=14A800&color=fff&rounded=true&bold=true&size=128" alt="Upwork logo" class="tool-icon">
+            <span>Upwork</span>
+          </div>
+          <div class="tool-item">
+            <img src="https://ui-avatars.com/api/?name=LinkedIn&background=0A66C2&color=fff&rounded=true&bold=true&size=128" alt="LinkedIn logo" class="tool-icon">
+            <span>LinkedIn</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Footer CTA -->
+  <section class="section-padding" style="text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+    <div class="container reveal">
+      <h2 style="font-family: var(--serif); font-size: 32px; margin-bottom: 24px;">Ready to start?</h2>
+      <a href="register.html?course=14-Day%20AI%20Generalist%20Accelerator" class="btn btn-primary" style="padding: 16px 40px; font-size: 16px;">Enroll in Starter</a>
+    </div>
+  </section>
+
+  <script>
+    // Reveal Animation
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(reveal => observer.observe(reveal));
+  </script>
+</body>
+</html>

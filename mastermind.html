@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rewire Academy — 3 Hour Gen-AI Mastermind</title>
+  <meta name="theme-color" content="#0A0A0C">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=8">
+  <style>
+    .mastermind-hero {
+      position: relative;
+      padding: 140px 0 100px;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      background: var(--obsidian);
+    }
+    .mastermind-card {
+      background: rgba(18, 18, 20, 0.7);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 64px;
+      position: relative;
+      overflow: hidden;
+      max-width: 1000px;
+      margin: 0 auto;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+    }
+    /* Add a subtle green glow inside the card to mimic the maze light */
+    .mastermind-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 400px;
+      background: radial-gradient(circle at center right, var(--accent-glow), transparent 70%);
+      pointer-events: none;
+    }
+    
+    .mm-tag {
+      display: inline-block;
+      background: var(--surface-hover);
+      color: var(--accent);
+      border: 1px solid var(--border);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 6px 12px;
+      text-transform: uppercase;
+      border-radius: 4px;
+      margin-bottom: 24px;
+    }
+    .mm-title {
+      font-family: var(--sans);
+      font-size: clamp(36px, 5vw, 48px);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+    .mm-desc {
+      font-size: 18px;
+      color: rgba(255,255,255,0.8);
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 48px;
+    }
+    .mm-details {
+      display: flex;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .mm-detail-col {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mm-detail-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+    }
+    .mm-detail-val {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+    }
+    
+    .mm-btn {
+      background: var(--accent);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 16px 48px;
+      border-radius: 8px;
+      display: inline-flex;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .mm-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 136, 255, 0.4);
+      background: #0077e6;
+    }
+
+    @media (max-width: 768px) {
+      .mastermind-card { padding: 32px; }
+      .mm-details { flex-direction: column; gap: 24px; }
+    }
+
+    /* Fallback gradients for missing images */
+    .bg-gradient-1 { background: linear-gradient(135deg, #1e293b, #0f172a); }
+    .bg-gradient-2 { background: linear-gradient(135deg, #334155, #0f172a); }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">REWIRE ●</a>
+      <div class="nav-links">
+        <a href="index.html#programs">Programs</a>
+        <a href="index.html#journey">The Journey</a>
+        <a href="index.html#sessions">Free Sessions</a>
+      </div>
+      <div class="nav-right">
+        <a href="index.html#sessions" class="nav-ghost-link">Try before you commit</a>
+        <a href="index.html#programs" class="btn btn-primary btn-pill">Explore Courses</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MASTERMIND HERO -->
+  <section class="mastermind-hero">
+    <div class="container">
+      <div class="mastermind-card">
+        <div class="mm-tag">1 WEEKEND ♦ 1 LIVE EXPERT SESSION</div>
+        <h1 class="mm-title">3 Hour Gen-AI Mastermind</h1>
+        <p class="mm-desc">Build your own AI-driven apps, create stunning visuals, and Automate Workflows. Unlock the power of Prompt Engineering, Diffusion models, and Custom GPTs.</p>
+        
+        <div class="mm-details">
+          <div class="mm-detail-col">
+            <span class="mm-detail-label">Start Date</span>
+            <span class="mm-detail-val">Upcoming Saturday</span>
+          </div>
+          <div class="mm-detail-col">
+            <span class="mm-detail-label">Start Time</span>
+            <span class="mm-detail-val">10 AM IST</span>
+          </div>
+          <div class="mm-detail-col">
+            <span class="mm-detail-label">Total Duration</span>
+            <span class="mm-detail-val">3 Hours of AI Training</span>
+          </div>
+        </div>
+
+        <a href="register.html?course=3-Hour%20Gen-AI%20Mastermind" class="mm-btn">Join the FREE Mastermind</a>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
