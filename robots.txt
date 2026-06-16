@@ -5,4 +5,4 @@ Disallow: /rewire-academy/
 Disallow: /screenshots/
 Disallow: /scratch/
 
-Sitemap: https://rewire.academy/sitemap.xml
+Sitemap: https://rewirebharat.com/sitemap.xml

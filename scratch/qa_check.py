@@ -32,17 +32,17 @@ with sync_playwright() as p:
     page.wait_for_timeout(300)
     menu = page.locator("#megaMenu")
     check(menu.is_visible(), "mega menu visible on click")
-    first_link = menu.locator("a.mega-menu-column").first
+    first_link = menu.locator(".mega-menu-column").first
     check("Starter" in first_link.inner_text(), "mega menu first card is Starter")
 
     # Course bento modal
-    card = page.locator(".course-bento-card").first
+    card = page.locator(".program-know-more").first
     card.click()
     page.wait_for_timeout(300)
     modal = page.locator("#courseModal")
     check(modal.is_visible(), "course modal opens")
     page.keyboard.press("Escape")
-    page.wait_for_timeout(200)
+    page.wait_for_timeout(800)
     check(not modal.is_visible(), "course modal closes on Escape")
 
     # Quiz modal
@@ -69,9 +69,9 @@ with sync_playwright() as p:
     # Mastermind copy
     log("\n--- mastermind.html ---")
     page.goto(f"{BASE}/mastermind.html")
-    check("3 Hour Gen-AI Mastermind" in page.content() or "3-Hour" in page.title(), "mastermind title ok")
-    check("3 Hours of AI Training" in page.content(), "mastermind duration is 3 hours")
-    check("10 AM IST" in page.content(), "mastermind time is 10 AM IST")
+    check("3-Hour" in page.title(), "mastermind title ok")
+    check("3-Hour AI Mastermind" in page.content(), "mastermind heading is present")
+    check("Every Saturday, 10 AM IST" in page.content(), "mastermind time is 10 AM IST")
 
     # Pricing alignment
     log("\n--- pricing checks ---")

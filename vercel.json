@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/mastermind", "destination": "/mastermind.html" },
+    { "source": "/professional", "destination": "/professional.html" },
+    { "source": "/specialist", "destination": "/specialist.html" }
+  ]
+}

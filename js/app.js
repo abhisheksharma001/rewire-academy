@@ -110,6 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
         closeMegaMenu(false);
       }
     });
+
+    window.addEventListener('scroll', () => {
+      if (programsDropdown.classList.contains('open')) {
+        closeMegaMenu(false);
+      }
+    }, { passive: true });
   }
 
   // ===== Global Escape Key for Modals =====
@@ -259,90 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ===== Course Bento Modal Logic =====
-  const courseCards = document.querySelectorAll('.course-bento-card');
-  const courseModal = document.getElementById('courseModal');
-  const courseModalClose = document.getElementById('courseModalClose');
-  
-  const courseData = {
-    'starter': {
-      step: 'STEP 1: The Foundation',
-      title: '14-Day Starter',
-      desc: '14 days continuous • 2 hours daily. Build your first AI workflow, master prompt engineering, and discover if this path is right for you. (MRP: ₹25k)',
-      features: ['Live, beginner-friendly', '20+ AI tools from Day 1', 'Build your first AI workflow', 'Certificate of completion'],
-      link: 'starter.html'
-    },
-    'professional': {
-      step: 'STEP 2: Mastery',
-      title: '3-Month Professional',
-      desc: 'Weekends only • 26 days total. Deep GenAI & LLM mastery. Build no-code AI agents, custom GPTs, and automate workflows. (MRP: ₹75k)',
-      features: ['Everything in Starter', 'No-code AI agents (Make/Zapier)', 'Custom GPT creation & deployment', '1:1 mentorship sessions'],
-      link: 'professional.html'
-    },
-    'specialist': {
-      step: 'STEP 3: Engineering',
-      title: '6-Month Specialist',
-      desc: 'Weekends only • 52 days total. Master LangChain, RAG, Vector DBs, and deploy production-ready multi-agent systems with Python. (MRP: ₹3 Lakh)',
-      features: ['Everything in Professional', 'LangChain, RAG, Vector DBs', 'Build & deploy real AI products', 'Multi-agent systems', 'Career placement support'],
-      link: 'specialist.html'
-    }
-  };
-
-  if (courseModal && courseCards.length > 0) {
-    let lastFocusedCourseCard = null;
-
-    function openCourseModal(card) {
-      const courseId = card.getAttribute('data-course-id');
-      const data = courseData[courseId];
-      if (!data) return;
-
-      lastFocusedCourseCard = card;
-      document.getElementById('courseModalStep').textContent = data.step;
-      document.getElementById('courseModalTitle').textContent = data.title;
-      document.getElementById('courseModalDesc').textContent = data.desc;
-      document.getElementById('courseModalLink').href = data.link;
-
-      const featuresList = document.getElementById('courseModalFeatures');
-      featuresList.innerHTML = '';
-      data.features.forEach(feature => {
-        const li = document.createElement('li');
-        li.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0088FF" stroke-width="2" style="margin-right:8px;vertical-align:text-bottom;" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> ${feature}`;
-        featuresList.appendChild(li);
-      });
-
-      courseModal.classList.add('active');
-      courseModal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-      if (courseModalClose) courseModalClose.focus();
-    }
-
-    function closeCourseModal() {
-      courseModal.classList.remove('active');
-      courseModal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      if (lastFocusedCourseCard) lastFocusedCourseCard.focus();
-    }
-
-    courseCards.forEach(card => {
-      card.addEventListener('click', () => openCourseModal(card));
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openCourseModal(card);
-        }
-      });
-    });
-
-    if (courseModalClose) courseModalClose.addEventListener('click', closeCourseModal);
-    courseModal.addEventListener('click', (e) => {
-      if (e.target === courseModal) closeCourseModal();
-    });
-    courseModal.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeCourseModal();
-    });
-    trapFocus(courseModal, closeCourseModal);
-  }
-
   const quizModal = document.getElementById('quizModal');
   const quizOpenBtn = document.getElementById('quizOpenBtn');
   const quizClose = document.getElementById('quizClose');
@@ -393,17 +315,17 @@ document.addEventListener('DOMContentLoaded', () => {
     starter: {
       title: 'Starter Program',
       desc: 'You are at the beginning of your journey. Join our free weekly mastermind to explore AI with zero commitment.',
-      link: 'https://wa.me/919876543210?text=Hi,%20I%20took%20the%20quiz%20and%20got%20Starter!'
+      link: 'register.html?course=14-Day%20AI%20Generalist%20Accelerator'
     },
     professional: {
       title: 'Professional Program',
-      desc: 'You are ready to commit. The 8-week Professional program will give you the skills and portfolio to stand out.',
-      link: 'https://wa.me/919876543210?text=Hi,%20I%20took%20the%20quiz%20and%20got%20Professional!'
+      desc: 'You are ready to commit. The 3-month Professional program will give you the skills and portfolio to stand out.',
+      link: 'register.html?course=3-Month%20Applied%20AI%20Live'
     },
     specialist: {
       title: 'Specialist Program',
-      desc: 'You are all in. The Specialist program offers advanced training, 1:1 mentorship, and career placement support.',
-      link: 'https://wa.me/919876543210?text=Hi,%20I%20took%20the%20quiz%20and%20got%20Specialist!'
+      desc: 'You are all in. The 6-month Specialist program offers advanced training, 1:1 mentorship, and career placement support.',
+      link: 'register.html?course=6-Month%20AI%20Engineering%20Specialist'
     }
   };
 
@@ -439,7 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
     quizQuestion.innerHTML = `<div class="quiz-result-title">${result.title}</div>`;
     quizOptions.innerHTML = `
       <p class="quiz-result-desc">${result.desc}</p>
-      <a href="${result.link}" class="btn btn-primary" target="_blank" rel="noopener noreferrer" style="width:100%;">Enquire on WhatsApp</a>
+      <a href="${result.link}" class="btn btn-primary" style="width:100%;">Register for this program →</a>
       <button class="btn btn-ghost" id="quizRestart" style="width:100%;margin-top:10px;">Retake Quiz</button>
     `;
     document.getElementById('quizRestart').addEventListener('click', () => {
@@ -584,33 +506,155 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ===== Live Countdown Timer =====
-  const countdownDisplay = document.getElementById('countdownDisplay');
-  if (countdownDisplay) {
-    // Set target date to next Monday
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + ((1 + 7 - targetDate.getDay()) % 7 || 7));
-    targetDate.setHours(9, 0, 0, 0);
+  // ===== Course Detail Modal =====
+  const courseModal = document.getElementById('courseModal');
+  const courseModalBackdrop = document.getElementById('courseModalBackdrop');
+  const courseModalClose = document.getElementById('courseModalClose');
+  const courseModalCard = document.getElementById('courseModalCard');
+  const programCards = document.querySelectorAll('.program-card');
 
-    function updateCountdown() {
-      const now = new Date();
-      const diff = targetDate - now;
-
-      if (diff <= 0) {
-        countdownDisplay.textContent = 'Started!';
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / 1000 / 60) % 60);
-
-      countdownDisplay.textContent = `${days} days ${hours} hours ${minutes} minutes`;
+  const courseDetailData = {
+    starter: {
+      step: 'Step 1: The Foundation',
+      title: '14-Day Starter',
+      desc: '14 days continuous • 2 hours daily. Build your first AI workflow, master prompt engineering, and discover if this path is right for you.',
+      features: [
+        'Live, beginner-friendly sessions',
+        '20+ AI tools from Day 1',
+        'Build your first AI workflow',
+        'Certificate of completion'
+      ],
+      audience: [
+        'Students & freshers curious about AI',
+        'Working professionals exploring AI tools',
+        'Founders & creators who want to automate tasks'
+      ],
+      link: 'register.html?course=14-Day%20Starter',
+      page: 'starter.html',
+      pageLabel: 'View full 14-day curriculum →'
+    },
+    professional: {
+      step: 'Step 2: Mastery',
+      title: '3-Month Professional',
+      desc: 'Weekends only • 26 days total. A no-code journey from basics to AI-powered business systems. Learn business processes and implement AI to automate manual workflows.',
+      features: [
+        'No-code AI agents & automation',
+        'Business process mapping from basics',
+        'Replace manual systems with AI workflows',
+        'Custom GPTs & internal AI tools',
+        'Portfolio of 4 real business projects'
+      ],
+      audience: [
+        'Working professionals & operators',
+        'Product managers & founders',
+        'Career switchers with no coding background'
+      ],
+      link: 'register.html?course=3-Month%20Professional',
+      page: 'professional.html',
+      pageLabel: 'View full 3-month curriculum →'
+    },
+    specialist: {
+      step: 'Step 3: Engineering',
+      title: '6-Month Specialist',
+      desc: 'Weekends only • 52 days total. Master LangChain, RAG, Vector DBs, and deploy production-ready multi-agent systems with Python.',
+      features: [
+        'Advanced Python & agent architecture',
+        'Production deployment skills',
+        'Multi-agent system projects',
+        'Placement & career support'
+      ],
+      audience: [
+        'Senior engineers & architects',
+        'Tech leads building AI products',
+        'Engineers targeting top AI roles'
+      ],
+      link: 'register.html?course=6-Month%20Specialist',
+      page: 'specialist.html',
+      pageLabel: 'View full 6-month curriculum →'
     }
+  };
 
-    updateCountdown();
-    setInterval(updateCountdown, 60000);
+  function populateCourseModal(courseKey) {
+    const data = courseDetailData[courseKey];
+    if (!data) return;
+
+    document.getElementById('courseModalStep').textContent = data.step;
+    document.getElementById('courseModalTitle').innerHTML = `<em>${data.title.split(' ')[0]}</em> ${data.title.split(' ').slice(1).join(' ')}`;
+    document.getElementById('courseModalDesc').textContent = data.desc;
+
+    const featuresList = document.getElementById('courseModalFeatures');
+    featuresList.innerHTML = data.features.map(f => `<li>${f}</li>`).join('');
+
+    const audienceList = document.getElementById('courseModalAudience');
+    audienceList.innerHTML = data.audience.map(a => `<li>${a}</li>`).join('');
+
+    document.getElementById('courseModalCta').href = data.link;
+
+    const pageLink = document.getElementById('courseModalPageLink');
+    if (pageLink && courseKey === 'starter' && data.page) {
+      pageLink.href = data.page;
+      pageLink.textContent = data.pageLabel || 'View full curriculum →';
+      pageLink.style.display = 'block';
+    } else if (pageLink) {
+      pageLink.style.display = 'none';
+    }
   }
+
+  let lastFocusedProgramCard = null;
+
+  function openCourseModal(card) {
+    const courseKey = card.getAttribute('data-course');
+    if (!courseKey || !courseDetailData[courseKey]) return;
+
+    lastFocusedProgramCard = card;
+    populateCourseModal(courseKey);
+
+    courseModalBackdrop.classList.add('active');
+    courseModal.classList.add('active');
+    courseModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    if (courseModalClose) courseModalClose.focus();
+  }
+
+  function closeCourseModal() {
+    courseModalBackdrop.classList.remove('active');
+    courseModal.classList.remove('active');
+    courseModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lastFocusedProgramCard) lastFocusedProgramCard.focus();
+  }
+
+  programCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.program-know-more')) {
+        e.preventDefault();
+        openCourseModal(card);
+      }
+    });
+  });
+
+  // Mega menu cards also open the course modal
+  document.querySelectorAll('.mega-menu-column').forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+      openCourseModal(card);
+    });
+  });
+
+  if (courseModalClose) courseModalClose.addEventListener('click', closeCourseModal);
+  if (courseModalBackdrop) courseModalBackdrop.addEventListener('click', closeCourseModal);
+  if (courseModal) {
+    courseModal.addEventListener('click', (e) => {
+      if (e.target === courseModal) closeCourseModal();
+    });
+    trapFocus(courseModal, closeCourseModal);
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && courseModal && courseModal.classList.contains('active')) {
+      closeCourseModal();
+    }
+  });
 
 
 });
