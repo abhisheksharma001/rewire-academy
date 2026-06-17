@@ -2,6 +2,19 @@
   "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://rewirebharat.com/$1",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": "www.rewirebharat.com"
+        }
+      ]
+    }
+  ],
   "rewrites": [
     { "source": "/mastermind", "destination": "/mastermind.html" },
     { "source": "/professional", "destination": "/professional.html" },
