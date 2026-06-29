@@ -141,11 +141,21 @@
       const response = await fetch(WA_LINK_FETCH_WEBHOOK);
       if (response.ok) {
         const data = await response.json();
-        // Assuming your n8n webhook returns JSON like: { "whatsapp_link": "https://chat.whatsapp.com/..." }
-        if (data && data.whatsapp_link) {
+        let link = null;
+
+        // Handle Array format (e.g., from n8n database nodes)
+        if (Array.isArray(data) && data.length > 0) {
+          link = data[0].Whatsapp_link || data[0].whatsapp_link;
+        } 
+        // Handle standard Object format
+        else if (data && typeof data === 'object') {
+          link = data.whatsapp_link || data.Whatsapp_link;
+        }
+
+        if (link) {
           const waLink = document.getElementById('whatsappLink');
           if (waLink) {
-            waLink.href = data.whatsapp_link;
+            waLink.href = link;
           }
         }
       }
