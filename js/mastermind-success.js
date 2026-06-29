@@ -134,7 +134,7 @@
 
   // ─── Fetch Dynamic WhatsApp Link ───────────────────────────
   // Replace this with your new n8n webhook URL that returns the link
-  const WA_LINK_FETCH_WEBHOOK = 'https://abhishekshar649.app.n8n.cloud/webhook/get-whatsapp-link'; 
+  const WA_LINK_FETCH_WEBHOOK = 'https://n8n-cbac.srv1785299.hstgr.cloud/webhook/30ad4fff-32b7-4ecf-a3e8-33791b158894'; 
   
   async function fetchWhatsAppLink() {
     try {
