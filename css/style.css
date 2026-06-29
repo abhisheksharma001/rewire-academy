@@ -2508,7 +2508,7 @@ ul, ol { list-style: none; }
 .footer-links a:hover { color: #ffffff; }
 
 .footer-social {
-  display: flex;
+  display: none;
   gap: 12px;
   margin-top: 20px;
 }
@@ -2804,6 +2804,16 @@ html.lenis {
   filter: grayscale(0%) brightness(0.7);
 }
 
+/* Gradient overlay to keep top text readable over busy backgrounds */
+.mm-bento-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0) 70%);
+  z-index: 1;
+  pointer-events: none;
+}
+
 /* Text content */
 .mm-bento-content {
   position: relative;
@@ -2817,11 +2827,13 @@ html.lenis {
   color: #fff;
   margin-bottom: 4px;
   letter-spacing: -0.01em;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 .mm-bento-desc {
   font-size: 13px;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.7);
   line-height: 1.4;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.5);
 }
 
 /* "✨ Prompt" label at bottom-left */

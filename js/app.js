@@ -331,6 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let quizIndex = 0;
   let quizScores = { starter: 0, professional: 0, specialist: 0 };
+  let quizAnswers = [];
 
   function renderQuizQuestion() {
     const q = quizData[quizIndex];
@@ -341,6 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.className = 'quiz-option';
       btn.textContent = opt.text;
       btn.addEventListener('click', () => {
+        quizAnswers.push({ question: q.question, answer: opt.text });
         Object.keys(opt.scores).forEach(k => quizScores[k] += opt.scores[k]);
         quizIndex++;
         if (quizIndex < quizData.length) {
@@ -354,10 +356,47 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function getReadableDate() {
+    return new Date().toLocaleString('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      dateStyle: 'medium',
+      timeStyle: 'medium',
+    });
+  }
+
+  function sendQuizCapture(winner, result) {
+    const payload = {
+      keyword: 'quiz_capture',
+      form_type: 'quiz',
+      quiz_result: result.title,
+      quiz_result_key: winner,
+      quiz_scores: quizScores,
+      quiz_answers: quizAnswers,
+      page_url: window.location.href,
+      source_page: window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) || 'index.html',
+      referrer: document.referrer || '',
+      submitted_at: getReadableDate(),
+      user_agent: navigator.userAgent,
+    };
+
+    const url = window.REWIRE_WEBHOOK_URL;
+    if (!url) return;
+
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }).catch(err => {
+      // Silent fail — don't block the user experience.
+      console.error('Quiz capture error:', err);
+    });
+  }
+
   function showQuizResult() {
     quizProgressFill.style.width = '100%';
     const winner = Object.keys(quizScores).reduce((a, b) => quizScores[a] > quizScores[b] ? a : b);
     const result = quizResults[winner];
+    sendQuizCapture(winner, result);
     quizQuestion.innerHTML = `<div class="quiz-result-title">${result.title}</div>`;
     quizOptions.innerHTML = `
       <p class="quiz-result-desc">${result.desc}</p>
@@ -367,6 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('quizRestart').addEventListener('click', () => {
       quizIndex = 0;
       quizScores = { starter: 0, professional: 0, specialist: 0 };
+      quizAnswers = [];
       quizProgressFill.style.width = '25%';
       renderQuizQuestion();
     });
@@ -381,6 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = 'hidden';
     quizIndex = 0;
     quizScores = { starter: 0, professional: 0, specialist: 0 };
+    quizAnswers = [];
     quizProgressFill.style.width = '25%';
     renderQuizQuestion();
     if (quizClose) quizClose.focus();

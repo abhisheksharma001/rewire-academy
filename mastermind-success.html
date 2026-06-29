@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>document.documentElement.classList.add('js-loaded');</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <title>Registration Successful — Rewire Academy</title>
+  <meta name="description" content="Your registration for the Free AI Mastermind at Rewire Academy is confirmed. Join the WhatsApp community for updates and the joining link.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/favicon.ico">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:site_name" content="Rewire Academy">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=optional" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #ffffff;
+      color: #1a1a2e;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ─── Header ─────────────────────────────────────── */
+    .ms-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .ms-logo {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #1a1a2e;
+    }
+
+    /* ─── Main Content ───────────────────────────────── */
+    .ms-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative background shapes */
+    .ms-decor-left,
+    .ms-decor-right {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: #e8f916;
+      opacity: 0.6;
+      z-index: 0;
+    }
+    .ms-decor-left {
+      top: -60px;
+      left: -120px;
+    }
+    .ms-decor-right {
+      bottom: -60px;
+      right: -120px;
+    }
+
+    .ms-content {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      width: 100%;
+    }
+
+    /* ─── Success Title ──────────────────────────────── */
+    .ms-title {
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1.3;
+      color: #1a1a2e;
+      margin-bottom: 40px;
+    }
+    .ms-title .emoji {
+      font-size: 40px;
+    }
+
+    /* ─── Important Card ─────────────────────────────── */
+    .ms-card {
+      background: #fff;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 36px 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    }
+    .ms-card-label {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #1a1a2e;
+      margin-bottom: 12px;
+    }
+    .ms-card-text {
+      font-size: 16px;
+      color: #4b5563;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .ms-wa-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      background: #1a1a2e;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      text-decoration: none;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.15s;
+    }
+    .ms-wa-btn:hover {
+      background: #2d2d4a;
+    }
+    .ms-wa-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* ─── Status Message ─────────────────────────────── */
+    .ms-status {
+      font-size: 13px;
+      color: #9ca3af;
+      margin-top: 8px;
+      min-height: 20px;
+      transition: color 0.3s;
+    }
+
+    /* ─── Reminder Text ──────────────────────────────── */
+    .ms-reminder {
+      font-size: 15px;
+      color: #6b7280;
+      line-height: 1.7;
+    }
+    .ms-reminder strong {
+      color: #1a1a2e;
+    }
+
+    /* ─── Footer ─────────────────────────────────────── */
+    .ms-footer {
+      background: #1a1a2e;
+      color: rgba(255, 255, 255, 0.5);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 13px;
+    }
+    .ms-footer-logo {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    /* ─── Responsive ─────────────────────────────────── */
+    @media (max-width: 640px) {
+      .ms-title { font-size: 26px; }
+      .ms-title .emoji { font-size: 30px; }
+      .ms-card { padding: 28px 20px; }
+      .ms-decor-left, .ms-decor-right { width: 200px; height: 200px; }
+      .ms-decor-left { top: -40px; left: -80px; }
+      .ms-decor-right { bottom: -40px; right: -80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="ms-header">
+    <div class="ms-logo">REWIRE ●</div>
+  </header>
+
+  <!-- Main -->
+  <main class="ms-main">
+    <!-- Decorative shapes -->
+    <div class="ms-decor-left"></div>
+    <div class="ms-decor-right"></div>
+
+    <div class="ms-content">
+      <h1 class="ms-title">
+        <span class="emoji">🥳</span> Yay, your registration for the<br>Free AI Mastermind is successful <span class="emoji">🥳</span>
+      </h1>
+
+      <div class="ms-card">
+        <div class="ms-card-label">IMPORTANT</div>
+        <p class="ms-card-text">Join the WhatsApp Community to receive the joining link &amp; resources</p>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="ms-wa-btn" id="whatsappLink">
+          Click Here →
+        </a>
+        <p class="ms-status" id="waStatus"></p>
+      </div>
+
+      <p class="ms-reminder">
+        Do check your <strong>email</strong> for all the updates and joining details!<br>
+        See you in the Workshop :) Don't miss this opportunity!
+      </p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="ms-footer">
+    <div class="ms-footer-logo">REWIRE ACADEMY ●</div>
+    <p>&copy; 2026 RAIN Media Ventures. All rights reserved.</p>
+  </footer>
+
+  <script src="js/mastermind-success.js"></script>
+</body>
+</html>

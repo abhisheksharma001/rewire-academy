@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>document.documentElement.classList.add('js-loaded');</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <title>A Few Questions — Rewire Academy</title>
+  <meta name="description" content="Help us understand your background so we can personalize your Rewire Academy experience.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/favicon.ico">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:site_name" content="Rewire Academy">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=optional" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { height: 100%; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #f8f9fa;
+      color: #1a1a2e;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Header ─────────────────────────────────────── */
+    .mf-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 24px;
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      position: relative;
+    }
+    .mf-back-btn {
+      position: absolute;
+      left: 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #374151;
+      text-decoration: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+    .mf-back-btn:hover { background: #f3f4f6; }
+    .mf-back-btn svg { width: 16px; height: 16px; }
+    .mf-logo {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #1a1a2e;
+    }
+
+    /* ─── Progress Bar ───────────────────────────────── */
+    .mf-progress-bar {
+      height: 4px;
+      background: #e5e7eb;
+      width: 100%;
+    }
+    .mf-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #1a1a2e, #374151);
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ─── Wrapper ────────────────────────────────────── */
+    .mf-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 20px 60px;
+      max-width: 640px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* ─── Step Indicator ─────────────────────────────── */
+    .mf-step-indicator {
+      font-size: 12px;
+      font-weight: 500;
+      color: #9ca3af;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* ─── WhatsApp Banner ────────────────────────────── */
+    .mf-wa-banner {
+      background: #f0fdf4;
+      border: 2px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      width: 100%;
+    }
+    .mf-wa-banner-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #166534;
+      margin-bottom: 8px;
+    }
+    .mf-wa-banner-title svg {
+      width: 20px;
+      height: 20px;
+      fill: #25D366;
+    }
+    .mf-wa-banner p {
+      font-size: 13px;
+      color: #374151;
+      line-height: 1.5;
+      margin-bottom: 4px;
+    }
+    .mf-wa-banner ol {
+      font-size: 13px;
+      color: #374151;
+      padding-left: 20px;
+      line-height: 1.7;
+    }
+
+    /* ─── Steps ──────────────────────────────────────── */
+    .mf-step {
+      display: none;
+      width: 100%;
+      animation: fadeIn 0.35s ease;
+    }
+    .mf-step.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .mf-step-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a1a2e;
+      line-height: 1.3;
+      margin-bottom: 28px;
+    }
+    .mf-step-title .required { color: #ef4444; font-weight: 400; }
+
+    /* ─── Option Cards ───────────────────────────────── */
+    .mf-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .mf-option-card {
+      padding: 16px 20px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #374151;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      user-select: none;
+    }
+    .mf-option-card:hover {
+      border-color: #9ca3af;
+      background: #f9fafb;
+    }
+    .mf-option-card.selected {
+      border-color: #1a1a2e;
+      background: #f0f1f5;
+      color: #1a1a2e;
+      box-shadow: 0 0 0 3px rgba(26, 26, 46, 0.08);
+    }
+
+    .mf-step-error {
+      color: #dc2626;
+      font-size: 13px;
+      min-height: 20px;
+      margin-bottom: 8px;
+    }
+
+    /* ─── Next Button ────────────────────────────────── */
+    .mf-next-btn {
+      width: 100%;
+      padding: 16px;
+      background: #1a1a2e;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.15s;
+      letter-spacing: 0.5px;
+    }
+    .mf-next-btn:hover { background: #2d2d4a; }
+    .mf-next-btn:active { transform: scale(0.98); }
+
+    @media (max-width: 640px) {
+      .mf-header { padding: 16px 16px; }
+      .mf-back-btn { left: 12px; padding: 6px 8px; font-size: 13px; }
+      .mf-logo { font-size: 18px; }
+      .mf-wrapper { padding: 24px 16px 48px; }
+      .mf-step-title { font-size: 22px; margin-bottom: 20px; }
+      .mf-wa-banner { padding: 16px 18px; }
+      .mf-option-card { padding: 14px 16px; font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="mf-header">
+    <button class="mf-back-btn" id="backBtn" style="display: none;" aria-label="Go back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      Back
+    </button>
+    <div class="mf-logo">REWIRE ●</div>
+  </header>
+
+  <!-- Progress Bar -->
+  <div class="mf-progress-bar">
+    <div class="mf-progress-fill" id="progressFill" style="width: 33.33%;"></div>
+  </div>
+
+  <main class="mf-wrapper">
+    <div class="mf-step-indicator" id="stepIndicator">Step 1 of 3</div>
+
+    <!-- WhatsApp Banner -->
+    <div class="mf-wa-banner">
+      <div class="mf-wa-banner-title">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Get WhatsApp Group access
+      </div>
+      <p>Complete this form to join the official program WhatsApp group, where you'll receive:</p>
+      <ol>
+        <li>Registration and Onboarding Details</li>
+        <li>Program Updates and Announcements</li>
+      </ol>
+    </div>
+
+    <!-- ═══════════ STEP 1: Current Role ═══════════ -->
+    <div class="mf-step active" data-step="1">
+      <h1 class="mf-step-title">What do you currently do? <span class="required">*</span></h1>
+      <div class="mf-options">
+        <div class="mf-option-card" data-value="Salaried Professional">Salaried Professional</div>
+        <div class="mf-option-card" data-value="Self-Employed">Self-Employed</div>
+        <div class="mf-option-card" data-value="Founder">Founder</div>
+        <div class="mf-option-card" data-value="Student">Student</div>
+      </div>
+      <div class="mf-step-error"></div>
+      <button type="button" class="mf-next-btn" id="nextStep1">NEXT</button>
+    </div>
+
+    <!-- ═══════════ STEP 2: Work Experience ═══════════ -->
+    <div class="mf-step" data-step="2">
+      <h2 class="mf-step-title">How many years of work experience do you have? <span class="required">*</span></h2>
+      <div class="mf-options">
+        <div class="mf-option-card" data-value="0 years (Fresher)">0 years (Fresher)</div>
+        <div class="mf-option-card" data-value="1-2 years">1-2 years</div>
+        <div class="mf-option-card" data-value="3-5 years">3-5 years</div>
+        <div class="mf-option-card" data-value="5-10 years">5-10 years</div>
+        <div class="mf-option-card" data-value="10-15 years">10-15 years</div>
+        <div class="mf-option-card" data-value="15+ years">15+ years</div>
+      </div>
+      <div class="mf-step-error"></div>
+      <button type="button" class="mf-next-btn" id="nextStep2">NEXT</button>
+    </div>
+
+    <!-- ═══════════ STEP 3: Goal ═══════════ -->
+    <div class="mf-step" data-step="3">
+      <h2 class="mf-step-title">What is your Goal for taking this program? <span class="required">*</span></h2>
+      <div class="mf-options">
+        <div class="mf-option-card" data-value="Kickstart Career">Kickstart Career</div>
+        <div class="mf-option-card" data-value="Career Transition">Career Transition</div>
+        <div class="mf-option-card" data-value="Upskilling">Upskilling</div>
+        <div class="mf-option-card" data-value="Others">Others</div>
+      </div>
+      <div class="mf-step-error"></div>
+      <button type="button" class="mf-next-btn" id="nextStep3">SUBMIT</button>
+    </div>
+
+  </main>
+
+  <script src="js/mastermind-form.js"></script>
+</body>
+</html>

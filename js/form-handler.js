@@ -18,6 +18,8 @@
     atob('OGI4NTA3ZDYtMTdmNy00ZDFjLTkwMGMtMGEyYzBkMDdkNTYz'),
   ];
   const WEBHOOK_URL = WEBHOOK_PARTS.join('');
+  // Expose for other modules (e.g. quiz capture) while keeping it obfuscated here.
+  window.REWIRE_WEBHOOK_URL = WEBHOOK_URL;
 
   // Timestamp when the page loaded — used for basic bot detection.
   const pageLoadTime = Date.now();
@@ -73,6 +75,24 @@
   }
 
   /**
+   * Cleans a phone number by stripping country codes and prefixes.
+   * Handles autofill values like +919876543210, 919876543210, 09876543210, etc.
+   * Returns just the 10-digit Indian mobile number.
+   */
+  function cleanPhone(raw) {
+    let digits = String(raw).replace(/[\s\-\(\)]/g, '').replace(/\D/g, '');
+    // Strip leading 91 (country code) if number is 12+ digits
+    if (digits.length >= 12 && digits.startsWith('91')) {
+      digits = digits.substring(2);
+    }
+    // Strip leading 0 if number is 11 digits
+    if (digits.length === 11 && digits.startsWith('0')) {
+      digits = digits.substring(1);
+    }
+    return digits;
+  }
+
+  /**
    * Validates a single field and displays/clears its error message.
    * Returns true if valid.
    */
@@ -93,7 +113,7 @@
         message = 'Please enter a valid email address.';
       }
     } else if (input.name === 'phone') {
-      const digits = input.value.replace(/\D/g, '');
+      const digits = cleanPhone(input.value);
       if (!input.value.trim()) {
         message = 'Phone number is required.';
       } else if (!/^[6-9]\d{9}$/.test(digits)) {
@@ -225,7 +245,7 @@
     // Remove honeypot from payload; sanitize phone
     delete fields.website;
     if (fields.phone) {
-      fields.phone = String(fields.phone).replace(/\D/g, '');
+      fields.phone = cleanPhone(fields.phone);
     }
 
     const consentGiven = fields.consent === 'on' || fields.consent === true || fields.consent === 'true';
@@ -307,8 +327,22 @@
         if (submitButton) {
           submitButton.textContent = 'Sent!';
         }
-        form.reset();
 
+        // For registration forms, save data and redirect to qualifying questions
+        if (formType === 'registration') {
+          try {
+            sessionStorage.setItem('rewire_registration_data', JSON.stringify(payload));
+          } catch (e) {
+            console.warn('sessionStorage unavailable:', e);
+          }
+          // Brief delay so user sees "Sent!" feedback
+          setTimeout(function () {
+            window.location.href = 'mastermind-register.html';
+          }, 600);
+          return;
+        }
+
+        form.reset();
         const message = 'Thanks! We received your submission.';
         showFeedback(form, message, 'success');
         announce(message);

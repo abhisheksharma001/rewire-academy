@@ -17,6 +17,8 @@
   ],
   "rewrites": [
     { "source": "/mastermind", "destination": "/mastermind.html" },
+    { "source": "/mastermind-register", "destination": "/mastermind-register.html" },
+    { "source": "/mastermind-success", "destination": "/mastermind-success.html" },
     { "source": "/professional", "destination": "/professional.html" },
     { "source": "/specialist", "destination": "/specialist.html" }
   ]
