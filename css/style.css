@@ -22,10 +22,25 @@ body {
   text-rendering: optimizeLegibility;
   padding-bottom: 80px; /* space for sticky CTA bar */
 }
-body.reduce-motion * {
+html {
+  scroll-behavior: auto;
+}
+body.reduce-motion *,
+body.reduce-motion *::before,
+body.reduce-motion *::after {
   animation: none !important;
   transition: none !important;
   scroll-behavior: auto !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
@@ -239,12 +254,11 @@ ul, ol { list-style: none; }
 .reveal {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
-  will-change: transform, opacity;
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
 }
 .js-loaded .reveal {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(16px);
 }
 .js-loaded .reveal.visible {
   opacity: 1;
@@ -607,9 +621,15 @@ ul, ol { list-style: none; }
   position: absolute;
   border-radius: 50%;
   filter: blur(120px);
-  opacity: 0.18;
-  mix-blend-mode: screen;
+  opacity: 0.22;
   animation: float-orb 20s infinite alternate ease-in-out;
+  transform: translateZ(0);
+}
+@media (max-width: 768px) {
+  .hero-mesh-orb {
+    filter: blur(80px);
+    opacity: 0.16;
+  }
 }
 .orb-1 {
   width: 50vw;

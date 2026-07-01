@@ -185,9 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry, index) => {
       if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, index * 80);
+        entry.target.classList.add('visible');
         revealObserver.unobserve(entry.target);
       }
     });
@@ -211,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     statNumbers.forEach(stat => {
       const target = parseInt(stat.dataset.count, 10);
       const suffix = stat.textContent.includes('%') ? '%' : '+';
-      const duration = 2000;
+      const duration = 1000;
       const start = performance.now();
 
       function tick(now) {
@@ -455,97 +453,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (heroProgress) heroProgress.style.width = '70%';
     }, 800);
 
-
-  // ===== Hero Animation Initialization =====
-  const runHeroAnimations = () => {
-    // Animate hero content elements in sequence with GSAP
-    if (typeof gsap !== 'undefined') {
-      gsap.fromTo('.hero-eyebrow', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, delay: 0.1 });
-      gsap.fromTo('.hero-headline', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, delay: 0.3 });
-      gsap.fromTo('.hero-subline', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, delay: 0.5 });
-      gsap.fromTo('.hero-ctas', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, delay: 0.7 });
-    }
-  };
-
-  if (document.readyState === 'complete') {
-    runHeroAnimations();
-  } else {
-    window.addEventListener('load', runHeroAnimations);
-  }
-
-
-  // ===== Intersection Observer for Hero Animation Pause =====
-  const heroSection = document.getElementById('hero');
-  if (heroSection) {
-    const meshGradients = document.querySelectorAll('.mesh-gradient');
-    const heroObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        meshGradients.forEach(mesh => {
-          if (entry.isIntersecting) {
-            mesh.style.animationPlayState = 'running';
-          } else {
-            mesh.style.animationPlayState = 'paused';
-          }
-        });
-      });
-    }, { threshold: 0 });
-    heroObserver.observe(heroSection);
-  }
-
-  // ===== Lenis Smooth Scroll =====
-  let lenisInstance = null;
-  if (typeof Lenis !== 'undefined' && !isSlowNetwork) {
-    lenisInstance = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
-      infinite: false,
-    });
-
-    function raf(time) {
-      lenisInstance.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    // Sync Lenis scroll with GSAP ScrollTrigger
-    if (typeof ScrollTrigger !== 'undefined') {
-      lenisInstance.on('scroll', ScrollTrigger.update);
-    }
-    
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href === '#') return;
-        const target = document.querySelector(href);
-        if (target) {
-          e.preventDefault();
-          lenisInstance.scrollTo(target, { offset: -80 });
-        }
-      });
-    });
-  } else {
-    // Fallback simple smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href === '#') return;
-        const target = document.querySelector(href);
-        if (target) {
-          e.preventDefault();
-          const offset = 80;
-          const top = target.getBoundingClientRect().top + window.scrollY - offset;
-          window.scrollTo({ top, behavior: 'smooth' });
-        }
-      });
-    });
-  }
 
   // ===== Course Detail Modal =====
   const courseModal = document.getElementById('courseModal');
